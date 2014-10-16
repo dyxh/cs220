@@ -1,17 +1,30 @@
-X1. What programming language you plan to use
+
+____
+1. What programming language you plan to use
 Java
 
-X2. What programming IDE you plan to use, if you plan to use any
+____
+2. What programming IDE you plan to use, if you plan to use any
 Eclipse
 
+___
 3. A brief overview of what you are proposing (be brief here) 
 
-We would like to create a 2D videogame for PC. From a high-level standpoint, we would like to include basic functionalities like saving a game, loading a game, and deleting/copying save game states, which will all be stored locally on the player's computer. The game will be a platformer set in an elementary schooler's nightmares, with each "nightmare" being a level. The player must progress through the nightmares by overcoming barriers such as defeating or escaping from enemies and solving puzzle-type minigames aided by a series of items and skills that the player can acquire throughout the game.
+We would like to create a 2D videogame for PC. From a high-level standpoint, we would like to include basic functionalities like saving a game, loading a game, and deleting/copying save game states, which will all be stored locally on the player's computer. The game will be a platformer/puzzle set in a child's nightmares, with each "nightmare" being a level. The player must progress through the nightmares by overcoming barriers such as defeating or escaping from enemies and solving puzzle-type minigames aided by a series of items and skills that the player can acquire throughout the game.
 
-X4. A complete use-case diagram of the proposed project
+Specifically, the player must progress through a series of levels to finish the game. Levels can be of three forms: general "get to the end of the stage" levels, "escape from an aggressor" level, and "find X number of items" levels. Each level will include a number of obstacles (monsters, physical barriers, puzzles) that the player will have to overcome by use of several skills that they learn by progressing throughout the game. The player will have to creatively use their skills and interactions with the environment in order to solve the puzzles and beat the monsters.
 
-X5. Choose one of the following two options to describe every use case
+___
+4. A complete use-case diagram of the proposed project
+(see UML files)
+
+___
+5. Choose one of the following two options to describe every use case
 option 1: activity diagram, following the format we discussed in lecture
 option 2: use case text description, following the format we discussed in lecture
+(see UML files)
 
+___
 6. Optional: tell us whatever you think can help convince us to accept your proposal
+
+We are extremely interested in creating a game and think it would be a perfect exercise in object-oriented programming, as well as an exercise in coordinating and combining the result of different tasks in order to create a single, cohesive end product, e.g. combining the actual implementation of the game mechanics with art, music, etc. We also already have a friend who is willing to help us with art/music, so that shouldn't be too great of an obstacle in the course of the project.
