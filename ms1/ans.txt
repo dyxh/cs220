@@ -1,0 +1,17 @@
+X1. What programming language you plan to use
+Java
+
+X2. What programming IDE you plan to use, if you plan to use any
+Eclipse
+
+3. A brief overview of what you are proposing (be brief here) 
+
+We would like to create a 2D videogame for PC. From a high-level standpoint, we would like to include basic functionalities like saving a game, loading a game, and deleting/copying save game states, which will all be stored locally on the player's computer. The game will be a platformer set in an elementary schooler's nightmares, with each "nightmare" being a level. The player must progress through the nightmares by overcoming barriers such as defeating or escaping from enemies and solving puzzle-type minigames aided by a series of items and skills that the player can acquire throughout the game.
+
+X4. A complete use-case diagram of the proposed project
+
+X5. Choose one of the following two options to describe every use case
+option 1: activity diagram, following the format we discussed in lecture
+option 2: use case text description, following the format we discussed in lecture
+
+6. Optional: tell us whatever you think can help convince us to accept your proposal
