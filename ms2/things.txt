@@ -1,23 +1,79 @@
 
+_
 1. The names of all the team members
- 
+- Max Chen
+- Melinda Chou
+- Steven Garcia
+- David Huang
+- Tejong Lim
+- Betty Liu
+- John Salem
+- Adam Wyeth
+
+(things Steven said)
+[1] Controller/UI
+- keyboard
+- customizing to operating system (?)
+[2] Assets
+- Sound
+- Graphics
+- Writing
+[3] Physics
+- forces, updating elements, tracking everything
+- iterating elements
+- track collisions (sprite-based should be simple)
+[4] AI/Scripting
+
+_
 2. Iteration 1 plan:
 - Which use cases you plan to implement in the 1st iteration (10/30-11/12)
 - How you plan to divide the work between the 3 or 4 pairs of students in your team
+	1) Start the game
+	2) Navigate menus
+	3) Move character
+	4) Battle
 
-Note that there are different ways to divide the work. You could divide based on use cases, or use case steps, or classes, or high-level components (e.g., GUI vs others), etc. Please be specific.
- 
+_
 3. Brief Iteration 2 plan
 - Which use cases you plan to implement in the 2nd iteration (11/13-11/26)
- 
+ 	1) Battle system (advanced)
+ 	2) Items, moves
+
+_
 4. A brief design for iteration 1
 - If you will use object-oriented programming, please provide a brief class diagram for the main classes you will implement for iteration 1. You don't need to include all the details in your diagram ---- for example, getter and setter functions don't need to be specified. Key operations and attributes need to be specified.
- 
+
+-> OBJECT
+. hitbox
+. coordinates
+. graphics
+. stats
+
+---> CHARACTER
+. health
+. mana
+. moveset
+
+---> PLAYER
+. controller
+
+---> ENEMY
+. weight/strategy
+
+---> PLATFORM
+. health
+
+[some of this is repetitive?]
+
+
+_
 5. How do you plan to coordinate with each other?
-Have you set up a code repository? You are welcome to use the phoenix-forge repository.
+Have you set up a code repository?
 Have you set up a plan for all team members to periodically get together?
+
  
+_
 6. (optional) If there are big changes to the proposal, please specify.
  
-How to submit
+
 Send the document to both TAs and Shan through emails by the end of Oct. 30th.
