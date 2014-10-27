@@ -12,3 +12,7 @@ Unreal Engine 4 C++ Programming
 * https://docs.unrealengine.com/latest/INT/Programming/index.html
 * https://www.unrealengine.com/blog/damage-in-ue4
 * (video)https://www.unrealengine.com/blog/ue4-intro-crash-course-programmers
+
+Open Soure Artwork/Assets
+--------------------------
+* http://opengameart.org/
