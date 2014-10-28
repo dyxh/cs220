@@ -1,0 +1,75 @@
+
+27 October 14
+
+Notes:
+- We will be following the Epic coding standards found here:
+https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/index.html
+- Pull requests will be granted only along with relevant unit tests passing for all changes.
+
+_
+1. The names of all the team members
+- Max Chen
+- Melinda Chou
+- Steven Garcia
+- David Huang
+- Tejong Lim
+- Betty Liu
+- John Salem
+- Adam Wyeth
+
+_
+2. Iteration 1 plan:
+- Which use cases you plan to implement in the 1st iteration (10/30-11/12)
+- How you plan to divide the work between the 3 or 4 pairs of students in your team
+
+- Start game menu
+	- start new game
+	- navigate title screen menu
+	- loading a saved game
+	- options
+
+- World Map
+	- Navigate world map
+	- Open the menu
+
+- In-game menu
+	- equip skills
+	- manage items
+	- save
+	- view stats
+
+- Platform
+	- move character
+	- initiate combat
+	- navigate level
+	- use skill
+	- kill enemy
+	- die to enemy
+	- beat level
+	- pick up item
+	- level up
+	- use item
+	- open menu
+
+_
+3. Brief Iteration 2 plan
+- Which use cases you plan to implement in the 2nd iteration (11/13-11/26)
+ 	1) Battle system (advanced)
+ 	2) Items, moves
+
+
+
+_
+4. A brief design for iteration 1
+- If you will use object-oriented programming, please provide a brief class diagram for the main classes you will implement for iteration 1. You don't need to include all the details in your diagram ---- for example, getter and setter functions don't need to be specified. Key operations and attributes need to be specified.
+
+
+_
+5. How do you plan to coordinate with each other?
+Have you set up a code repository?
+Have you set up a plan for all team members to periodically get together?
+
+We have a Github repository set up and are planning and have already begun using Doodle to set up group meetings.
+ 
+_
+6. (optional) If there are big changes to the proposal, please specify.
