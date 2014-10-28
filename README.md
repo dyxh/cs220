@@ -13,6 +13,6 @@ Unreal Engine 4 C++ Programming
 * https://www.unrealengine.com/blog/damage-in-ue4
 * (video)https://www.unrealengine.com/blog/ue4-intro-crash-course-programmers
 
-Open Soure Artwork/Assets
+Open Source Artwork/Assets
 --------------------------
 * http://opengameart.org/
