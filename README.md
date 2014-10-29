@@ -12,6 +12,8 @@ Unreal Engine 4 C++ Programming
 * https://docs.unrealengine.com/latest/INT/Programming/index.html
 * https://www.unrealengine.com/blog/damage-in-ue4
 * (video)https://www.unrealengine.com/blog/ue4-intro-crash-course-programmers
+* This is a tutorial on a 2.5D platform game.  The source code/project are available from the marketplace in the launcher: https://docs.unrealengine.com/latest/INT/Resources/SampleGames/PlatformerGame/
+
 
 Open Source Artwork/Assets
 --------------------------
