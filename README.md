@@ -16,3 +16,7 @@ Unreal Engine 4 C++ Programming
 Open Source Artwork/Assets
 --------------------------
 * http://opengameart.org/
+
+Google Doc for Class Diagram
+------------------------------
+https://docs.google.com/document/d/1YzFL1l9lMzscGx680sZzfWUoiNkIdpLQuX7_LA9_9P0/edit
