@@ -3,6 +3,7 @@ cs220
 
 cs22001 software construction
 
+STEVEN, THE COOL BOOK WE FOUND IS HERE: http://gameprogrammingpatterns.com/command.html
 
 Unreal Engine 4 C++ Programming
 ------------------------------------
