@@ -1,6 +1,8 @@
 cs220 - LeoZilla
 =====
 
+READ: http://gameprogrammingpatterns.com/
+
 cs22001 software construction
 ===
 
