@@ -1,4 +1,7 @@
-cs220 - G.A.M.E. - "Gatelike Adversaries Meeting their End"
+cs220 - G.A.M.E. 
+Suggestions?
+- "Gatelike Adversaries Meeting their End"
+- "Gigabytes And Megabytes Emulating"
 =====
 
 READ: http://gameprogrammingpatterns.com/
