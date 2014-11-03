@@ -1,4 +1,4 @@
-cs220 - LeoZilla
+cs220 - G.A.M.E. - "Gatelike Adversaries Meeting their End"
 =====
 
 READ: http://gameprogrammingpatterns.com/
