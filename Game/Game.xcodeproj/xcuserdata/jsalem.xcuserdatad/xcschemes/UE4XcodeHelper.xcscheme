@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+  LastUpgradeVersion = "0500"
+  version = "1.3">
+  <BuildAction
+     parallelizeBuildables = "YES"
+     buildImplicitDependencies = "YES">
+     <BuildActionEntries>
+        <BuildActionEntry
+           buildForTesting = "YES"
+           buildForRunning = "YES"
+           buildForProfiling = "YES"
+           buildForArchiving = "YES"
+           buildForAnalyzing = "YES">
+           <BuildableReference
+              BuildableIdentifier = "primary"
+              BlueprintIdentifier = "D711B1FC4DEE60CF3FB6188C"
+              BuildableName = "libUE4XcodeHelper.a"
+              BlueprintName = "UE4XcodeHelper"
+              ReferencedContainer = "container:Game.xcodeproj">
+           </BuildableReference>
+        </BuildActionEntry>
+     </BuildActionEntries>
+  </BuildAction>
+  <TestAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+     selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+     shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "DebugGame">
+     <Testables>
+        <TestableReference
+           skipped = "NO">
+           <BuildableReference
+              BuildableIdentifier = "primary"
+              BlueprintIdentifier = "E21DA3825FF65243B4288416"
+              BuildableName = "UE4CmdLineRun.xctest"
+              BlueprintName = "UE4CmdLineRun"
+              ReferencedContainer = "container:Game.xcodeproj">
+           </BuildableReference>
+        </TestableReference>
+     </Testables>
+     <MacroExpansion>
+        <BuildableReference
+           BuildableIdentifier = "primary"
+           BlueprintIdentifier = "D711B1FC4DEE60CF3FB6188C"
+           BuildableName = "libUE4XcodeHelper.a"
+           BlueprintName = "UE4XcodeHelper"
+           ReferencedContainer = "container:Game.xcodeproj">
+        </BuildableReference>
+     </MacroExpansion>
+  </TestAction>
+  <LaunchAction
+     selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+     selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+     launchStyle = "0"
+     useCustomWorkingDirectory = "NO"
+     buildConfiguration = "DebugGame"
+     ignoresPersistentStateOnLaunch = "NO"
+     debugDocumentVersioning = "YES"
+     allowLocationSimulation = "YES">
+     <PathRunnable
+        FilePath = "/Users/Shared/UnrealEngine/4.5/Engine/Binaries/Mac/UE4XcodeHelper-Mac-Debug">
+     </PathRunnable>
+     <AdditionalOptions>
+     </AdditionalOptions>
+  </LaunchAction>
+  <ProfileAction
+     shouldUseLaunchSchemeArgsEnv = "YES"
+     savedToolIdentifier = ""
+     useCustomWorkingDirectory = "NO"
+     buildConfiguration = "Development"
+     debugDocumentVersioning = "YES">
+     <PathRunnable
+        FilePath = "/Users/Shared/UnrealEngine/4.5/Engine/Binaries/Mac/UE4XcodeHelper">
+     </PathRunnable>
+     <BuildableProductRunnable>
+         <BuildableReference
+             BuildableIdentifier = "primary"
+	          BlueprintIdentifier = "D711B1FC4DEE60CF3FB6188C"
+             BuildableName = "UE4XcodeHelper"
+             BlueprintName = "UE4XcodeHelper"
+             ReferencedContainer = "container:UE4.xcodeproj">
+         </BuildableReference>
+     </BuildableProductRunnable>
+  </ProfileAction>
+  <AnalyzeAction
+     buildConfiguration = "DebugGame">
+  </AnalyzeAction>
+  <ArchiveAction
+     buildConfiguration = "Development"
+     revealArchiveInOrganizer = "YES">
+  </ArchiveAction>
+</Scheme>
