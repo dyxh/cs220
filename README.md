@@ -4,6 +4,10 @@ cs220
 cs22001 software construction
 ===
 
+Source control
+--------------
+http://gamedev.stackexchange.com/questions/72248/which-unreal-engine-4-project-files-can-i-ignore-in-source-control
+
 Unreal Engine 4 C++ Programming
 ------------------------------------
 * https://wiki.unrealengine.com/First_Person_Shooter_C%2B%2B_Tutorial
