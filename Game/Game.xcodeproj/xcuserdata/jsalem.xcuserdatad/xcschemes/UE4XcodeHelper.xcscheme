@@ -14,7 +14,7 @@
            buildForAnalyzing = "YES">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "D711B1FC4DEE60CF3FB6188C"
+              BlueprintIdentifier = "E21DA3825FF65243B4288416"
               BuildableName = "libUE4XcodeHelper.a"
               BlueprintName = "UE4XcodeHelper"
               ReferencedContainer = "container:Game.xcodeproj">
@@ -32,7 +32,7 @@
            skipped = "NO">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "E21DA3825FF65243B4288416"
+              BlueprintIdentifier = "5A273BE58904752506AD7474"
               BuildableName = "UE4CmdLineRun.xctest"
               BlueprintName = "UE4CmdLineRun"
               ReferencedContainer = "container:Game.xcodeproj">
@@ -42,7 +42,7 @@
      <MacroExpansion>
         <BuildableReference
            BuildableIdentifier = "primary"
-           BlueprintIdentifier = "D711B1FC4DEE60CF3FB6188C"
+           BlueprintIdentifier = "E21DA3825FF65243B4288416"
            BuildableName = "libUE4XcodeHelper.a"
            BlueprintName = "UE4XcodeHelper"
            ReferencedContainer = "container:Game.xcodeproj">
@@ -76,7 +76,7 @@
      <BuildableProductRunnable>
          <BuildableReference
              BuildableIdentifier = "primary"
-	          BlueprintIdentifier = "D711B1FC4DEE60CF3FB6188C"
+	          BlueprintIdentifier = "E21DA3825FF65243B4288416"
              BuildableName = "UE4XcodeHelper"
              BlueprintName = "UE4XcodeHelper"
              ReferencedContainer = "container:UE4.xcodeproj">

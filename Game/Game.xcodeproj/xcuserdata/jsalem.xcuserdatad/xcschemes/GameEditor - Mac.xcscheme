@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "813DBB2C8FA8488CB2A0850E"
+               BlueprintIdentifier = "29FC17BCBC00AB4007D219E1"
                BuildableName = "GameEditor - Mac"
                BlueprintName = "GameEditor - Mac"
                ReferencedContainer = "container:Game.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E21DA3825FF65243B4288416"
+               BlueprintIdentifier = "5A273BE58904752506AD7474"
                BuildableName = "UE4CmdLineRun.xctest"
                BlueprintName = "UE4CmdLineRun"
                ReferencedContainer = "container:Game.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "813DBB2C8FA8488CB2A0850E"
+            BlueprintIdentifier = "29FC17BCBC00AB4007D219E1"
             BuildableName = "GameEditor - Mac"
             BlueprintName = "GameEditor - Mac"
             ReferencedContainer = "container:Game.xcodeproj">
@@ -64,7 +64,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "813DBB2C8FA8488CB2A0850E"
+            BlueprintIdentifier = "29FC17BCBC00AB4007D219E1"
             BuildableName = "GameEditor - Mac"
             BlueprintName = "GameEditor - Mac"
             ReferencedContainer = "container:Game.xcodeproj">
@@ -92,7 +92,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "813DBB2C8FA8488CB2A0850E"
+            BlueprintIdentifier = "29FC17BCBC00AB4007D219E1"
             BuildableName = "UE4Editor.app"
             BlueprintName = "UE4Editor"
             ReferencedContainer = "container:UE4.xcodeproj">
