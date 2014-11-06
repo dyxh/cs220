@@ -59,7 +59,6 @@ TEST_F(TEST_CHARACTER, TEST_ITEM)
     item.use(&character);
     EXPECT_TRUE(character.currentStamina == 100); // assumes a stamina potion restores 10 stamina points
     
-
     // item equip is just getting and setting member attributes
 }
     
