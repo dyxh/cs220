@@ -7,6 +7,10 @@ Item::Item(int id, FString name, FString description) : id(id), name(name), desc
 {
 }
 
+Item::Item()
+{
+}
+
 Item::~Item()
 {
 }
