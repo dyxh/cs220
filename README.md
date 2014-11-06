@@ -1,3 +1,5 @@
+# STEVEN BEAVENS MAKE SURE YOU READ THE BOOK IT IS LOCATED CONVENIENTLY AT THIS URL THAT WILL FOLLOW THIS SENTENCE IT IS HERE: http://gameprogrammingpatterns.com/
+
 # G.A.M.E. 
 *Adam Wyeth, John Salem, Betty Liu, Tejong Lim, David Huang, Steven Garcia, Melinda Chou, Max Chen*
 
