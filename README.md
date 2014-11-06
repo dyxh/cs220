@@ -7,6 +7,8 @@
 * "Gatelike Adversaries Meeting their End"
 * "Gigabytes And Megabytes Emulating"
 
+### The Repository for Submission: [Click me!](https://github.com/moniker001/cs22001_GAME)
+
 ### Important resources
 * [Game programming patterns](http://gameprogrammingpatterns.com/)
 * [Open source assets](http://opengameart.org/)
