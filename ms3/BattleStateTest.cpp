@@ -69,11 +69,6 @@ TEST_F(TEST_BATTLESTATE, TEST_DAMAGED_STATE)
     // tests if character takes damage
     character.takeDamage(10);
     EXPECT_TRUE(character.get_BattleState() == damagedState);
-    EXPECT_TRUE(character.currentHealth == maxHealth - 10);
-    
-    // tests if character dies
-    character.takeDamage(maxHealth - 10);
-    EXPECT_TRUE(character.currentHealth == 0);
 }
 
 TEST_F(TEST_BATTLESTATE, TEST_SHIELD_STATE)
