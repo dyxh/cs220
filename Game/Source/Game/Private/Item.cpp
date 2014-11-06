@@ -14,3 +14,10 @@ Item::Item()
 Item::~Item()
 {
 }
+
+Item::Item()
+{
+    id = -1;
+    name = "default";
+    description = "defualt";
+}
