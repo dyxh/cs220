@@ -11,7 +11,6 @@ public:
 	Item(int id, FString name, FString description);
     Item();
 	~Item();
-    Item();
     int get_id();
     FString get_name();
     FString get_description();

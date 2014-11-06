@@ -9,15 +9,11 @@ Item::Item(int id, FString name, FString description) : id(id), name(name), desc
 
 Item::Item()
 {
+    id = -1;
+    name = "default";
+    description = "defualt";
 }
 
 Item::~Item()
 {
-}
-
-Item::Item()
-{
-    id = -1;
-    name = "default";
-    description = "defualt";
 }
