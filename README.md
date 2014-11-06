@@ -1,33 +1,24 @@
-cs220 - G.A.M.E. 
-Suggestions?
-- "Gatelike Adversaries Meeting their End"
-- "Gigabytes And Megabytes Emulating"
-=====
+# G.A.M.E. 
+*Adam Wyeth, John Salem, Betty Liu, Tejong Lim, David Huang, Steven Garcia, Melinda Chou, Max Chen*
 
-READ: http://gameprogrammingpatterns.com/
+### Acronym suggestions?
+* "Gatelike Adversaries Meeting their End"
+* "Gigabytes And Megabytes Emulating"
 
-cs22001 software construction
-===
+### Important resources
+* **Game programming patterns** http://gameprogrammingpatterns.com/
+* **Open source assets** http://opengameart.org/
+* **Coding standards** https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/index.html
 
-Source control
---------------
-http://gamedev.stackexchange.com/questions/72248/which-unreal-engine-4-project-files-can-i-ignore-in-source-control
-
-Unreal Engine 4 C++ Programming
-------------------------------------
+### Miscellaneous information, tutorials, guides, etc.
+* http://gamedev.stackexchange.com/questions/72248/which-unreal-engine-4-project-files-can-i-ignore-in-source-control
 * https://wiki.unrealengine.com/First_Person_Shooter_C%2B%2B_Tutorial
-* (video)https://www.unrealengine.com/blog/introduction-to-c
+* `video` https://www.unrealengine.com/blog/introduction-to-c
 * https://wiki.unrealengine.com/Entry_Level_Guide_to_UE4_C%2B%2B
 * https://docs.unrealengine.com/latest/INT/Programming/index.html
 * https://www.unrealengine.com/blog/damage-in-ue4
-* (video)https://www.unrealengine.com/blog/ue4-intro-crash-course-programmers
+* `video` https://www.unrealengine.com/blog/ue4-intro-crash-course-programmers
 * This is a tutorial on a 2.5D platform game.  The source code/project are available from the marketplace in the launcher: https://docs.unrealengine.com/latest/INT/Resources/SampleGames/PlatformerGame/
 
-
-Open Source Artwork/Assets
---------------------------
-* http://opengameart.org/
-
-Google Doc for Class Diagram
-------------------------------
-https://docs.google.com/document/d/1YzFL1l9lMzscGx680sZzfWUoiNkIdpLQuX7_LA9_9P0/edit
+### Previous work
+* https://docs.google.com/document/d/1YzFL1l9lMzscGx680sZzfWUoiNkIdpLQuX7_LA9_9P0/edit
