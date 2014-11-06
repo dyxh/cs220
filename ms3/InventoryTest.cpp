@@ -28,24 +28,24 @@ TEST_F(test_inventory, add_invItem){
 
 	//tests size of the inventory and quantity of each item
 	EXPECT_EQ(a.inv.size(),2);
-	EXPECT_EQ(a.inv.find(w1.get_id()).second, 1);
-	EXPECT_EQ(a.inv.find(p1.get_id()).second, 1);
+	EXPECT_EQ(a.inv.find(w1.get_id())->second.second, 1);
+	EXPECT_EQ(a.inv.find(p1.get_id())->second.second, 1);
 
 	//tests size of inventory after adding another different item
 	//makes sure that the quantity of the other items do not change
 	EXPECT_TRUE(a.add_invItem(b1));
 	EXPECT_EQ(a.inv.size(), 3);
-	EXPECT_EQ(a.inv.find(w1.get_id()).second, 1);
-	EXPECT_EQ(a.inv.find(p1.get_id()).second, 1);
-	EXPECT_EQ(a.inv.find(b1.get_id()).second, 1);
+	EXPECT_EQ(a.inv.find(w1.get_id())->second.second, 1);
+	EXPECT_EQ(a.inv.find(p1.get_id())->second.second, 1);
+	EXPECT_EQ(a.inv.find(b1.get_id())->second.second, 1);
 
 	//tests size of inventory does not change after adding one more
 	//of the same item; quantity of one item increases by one
 	EXPECT_TRUE(a.add_invItem(w1));
 	EXPECT_EQ(a.inv.size(), 3);
-	EXPECT_EQ(a.inv.find(w1.get_id()).second, 2);
-	EXPECT_EQ(a.inv.find(p1.get_id()).second, 1);
-	EXPECT_EQ(a.inv.find(b1.get_id()).second, 1);
+	EXPECT_EQ(a.inv.find(w1.get_id())->second.second, 2);
+	EXPECT_EQ(a.inv.find(p1.get_id())->second.second, 1);
+	EXPECT_EQ(a.inv.find(b1.get_id())->second.second, 1);
 }
 
 TEST_F(test_inventory, remove_invItem){
@@ -57,9 +57,9 @@ TEST_F(test_inventory, remove_invItem){
 
 	//checks if there are two of the first weapon
 	EXPECT_EQ(a.inv.size(),3);
-	EXPECT_EQ(a.inv.find(w1.get_id()).second, 2);
-	EXPECT_EQ(a.inv.find(p1.get_id()).second, 1);
-	EXPECT_EQ(a.inv.find(b1.get_id()).second, 1);
+	EXPECT_EQ(a.inv.find(w1.get_id())->second.second, 2);
+	EXPECT_EQ(a.inv.find(p1.get_id())->second.second, 1);
+	EXPECT_EQ(a.inv.find(b1.get_id())->second.second, 1);
 
 	//checks if removing one of an item with quantity
 	//greater than 1 lowers quantity by 1 but does not
@@ -67,15 +67,15 @@ TEST_F(test_inventory, remove_invItem){
 	//of other items
 	EXPECT_TRUE(a.remove_invItem(w1));
 	EXPECT_EQ(a.inv.size(), 3);
-	EXPECT_EQ(a.inv.find(w1.get_id()).second, 1);
-	EXPECT_EQ(a.inv.find(p1.get_id()).second, 1);
-	EXPECT_EQ(a.inv.find(b1.get_id()).second, 1);
+	EXPECT_EQ(a.inv.find(w1.get_id())->second.second, 1);
+	EXPECT_EQ(a.inv.find(p1.get_id())->second.second, 1);
+	EXPECT_EQ(a.inv.find(b1.get_id())->second.second, 1);
 
 	//checks if removing one of an item with quantity 1
 	//would remove the item from the map
 	EXPECT_TRUE(a.remove_invItem(w1));
 	EXPECT_EQ(a.inv.size(),2);
 	EXPECT_TRUE(a.inv.find(w1.get_id()) == a.inv.end());
-	EXPECT_EQ(a.inv.find(p1.get_id()).second, 1);
-	EXPECT_EQ(a.inv.find(b1.get_id()).second, 1);
+	EXPECT_EQ(a.inv.find(p1.get_id())->second.second, 1);
+	EXPECT_EQ(a.inv.find(b1.get_id())->second.second, 1);
 }
