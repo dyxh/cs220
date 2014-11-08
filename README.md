@@ -1,5 +1,3 @@
-# STEVEN BEAVENS MAKE SURE YOU READ THE BOOK IT IS LOCATED CONVENIENTLY AT THIS URL THAT WILL FOLLOW THIS SENTENCE IT IS HERE: http://gameprogrammingpatterns.com/
-
 # G.A.M.E. 
 *Adam Wyeth, John Salem, Betty Liu, Tejong Lim, David Huang, Steven Garcia, Melinda Chou, Max Chen*
 
@@ -14,7 +12,7 @@
 * [Open source assets](http://opengameart.org/)
 * [Epic's coding standards](https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/index.html)
 * [FIRST PERSON SHOOTER TUTORIAL](https://wiki.unrealengine.com/First_Person_Shooter_C%2B%2B_Tutorial)
-
+* [RPG Framework Exmple](https://github.com/iniside/RPGFramework)
 
 ### Miscellaneous information, tutorials, guides, etc.
 * http://gamedev.stackexchange.com/questions/72248/which-unreal-engine-4-project-files-can-i-ignore-in-source-control
