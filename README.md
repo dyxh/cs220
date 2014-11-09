@@ -26,3 +26,6 @@
 
 ### Previous work
 * https://docs.google.com/document/d/1YzFL1l9lMzscGx680sZzfWUoiNkIdpLQuX7_LA9_9P0/edit
+
+### Tutorial for Game in Libgdx
+* [DragonTale](https://www.youtube.com/watch?v=9dzhgsVaiSo&list=PL-2t7SM0vDfcIedoMIghzzgQqZq45jYGv&index=1)
