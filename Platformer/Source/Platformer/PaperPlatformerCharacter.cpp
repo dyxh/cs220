@@ -3,6 +3,8 @@
 #include "Platformer.h"
 #include "PaperPlatformerCharacter.h"
 #include "PaperFlipbookComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "PaperEnemy.h"
 
 
 APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructInitializeProperties& PCIP)
@@ -190,11 +192,27 @@ void APaperPlatformerCharacter::OnStopRun()
 
 void APaperPlatformerCharacter::OnStartAttack()
 {
+    // going to use the following function to get all actors inside the damagebox
+    // https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UKismetSystemLibrary/BoxOverlapActors_NEW/index.html
 	if (Stamina > 200.0f)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ATTACK!"));
 		BattleState = EBattleState::Attack;
 		Stamina -= 200.0f;
+        
+        TArray<AActor*> EnemiesInRange;
+        
+        FVector BoxPos = DamageBox->GetComponentLocation();
+        FVector BoxExtent = DamageBox->GetScaledBoxExtent();
+        const TArray<TEnumAsByte<EObjectTypeQuery>> filter; //not used
+        const TArray<AActor*> ignore; //not used
+        
+        UKismetSystemLibrary::BoxOverlapActors_NEW(GetWorld(), BoxPos, BoxExtent, filter, APaperEnemy::StaticClass(), ignore, EnemiesInRange);
+        
+        for (auto &overlapped : EnemiesInRange)
+        {
+            Cast<APaperEnemy>(overlapped)->ReceiveDamage(AttackPower);
+        }
 	}
 }
 
