@@ -206,7 +206,7 @@ void APaperPlatformerCharacter::OnStopAttack()
 
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
-
+    // if trying to run and actually moving
 	if ((MoveState == EMoveState::Run) && (GetVelocity().Size() > 0.0f))
 	{
 		if (Stamina > 0)
@@ -218,6 +218,10 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 			OnStopRun();
 		}
 	}
+    else // if not moving
+    {
+        OnStopRun();
+    }
 	
 	if ((MoveState == EMoveState::Idle) && (Stamina < MaxStamina) && (BattleState == EBattleState::Idle)) // stamina regen
 	{
