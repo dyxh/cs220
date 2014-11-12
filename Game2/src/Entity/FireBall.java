@@ -64,7 +64,7 @@ public class FireBall extends MapObject {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-				
+	
 	}
 	
 	public void setHit() {

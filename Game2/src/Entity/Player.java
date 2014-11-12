@@ -302,7 +302,11 @@ public class Player extends MapObject {
 		// shielding
 		if(shielding) {
 			fire -= 2;
+			if (fire < 0) {
+				fire = 0;
+			}
 		}
+		
 		// update fireballs
 		for(int i = 0; i < fireBalls.size(); i++) {
 			fireBalls.get(i).update();
