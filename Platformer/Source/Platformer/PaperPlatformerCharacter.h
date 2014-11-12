@@ -113,6 +113,14 @@ protected:
 	UFUNCTION()
 	void OnStopRun();
 
+	// Handles attack start
+	UFUNCTION()
+	void OnStartAttack();
+
+	// Handles attack start
+	UFUNCTION()
+	void OnStopAttack();
+
 	// Running animation
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbook* RunningAnimation;

@@ -107,6 +107,8 @@ void APaperPlatformerCharacter::SetupPlayerInputComponent(UInputComponent* Input
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 	InputComponent->BindAction("Run", IE_Pressed, this, &APaperPlatformerCharacter::OnStartRun);
 	InputComponent->BindAction("Run", IE_Released, this, &APaperPlatformerCharacter::OnStopRun);
+	InputComponent->BindAction("Attack", IE_Pressed, this, &APaperPlatformerCharacter::OnStartAttack);
+	InputComponent->BindAction("Attack", IE_Released, this, &APaperPlatformerCharacter::OnStopAttack);
 }
 
 void APaperPlatformerCharacter::MoveRight(float val)
@@ -184,6 +186,22 @@ void APaperPlatformerCharacter::OnStopRun()
 	CharacterMovement->MaxWalkSpeed = 800.0f;
 }
 
+void APaperPlatformerCharacter::OnStartAttack()
+{
+	if (Stamina > 200.0f)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ATTACK!"));
+		BattleState = EBattleState::Attack;
+		Stamina -= 200.0f;
+	}
+}
+
+void APaperPlatformerCharacter::OnStopAttack()
+{
+	BattleState = EBattleState::Idle;
+}
+
+
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
 
@@ -199,7 +217,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 		}
 	}
 	
-	if ((MoveState == EMoveState::Idle) && (Stamina < MaxStamina)) // stamina regen
+	if ((MoveState == EMoveState::Idle) && (Stamina < MaxStamina) && (BattleState == EBattleState::Idle)) // stamina regen
 	{
 		Stamina += MaxStamina * StaminaRegen;
 		Stamina = (Stamina > MaxStamina) ? MaxStamina : Stamina;
