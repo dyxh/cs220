@@ -85,6 +85,10 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
 	// Health Regeneration rate
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
 	float HealthRegen;
+    
+    // Health Regeneration rate
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Attack)
+    float AttackPower;
 
 	// override Tick
 	virtual void Tick(float DeltaSeconds) override;

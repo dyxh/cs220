@@ -17,6 +17,8 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 
 	HealthRegen = 0.0f;
 	StaminaRegen = 0.001f;
+    
+    AttackPower = 100.0f;
 
 	// set initial battle and movement states
 	MoveState = EMoveState::Idle;
