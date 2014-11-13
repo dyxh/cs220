@@ -46,27 +46,27 @@ void APickup::OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent
     TArray<AActor*> OverlapActors;
     BaseCollisionComponent->GetOverlappingActors(OverlapActors);
     
-    for( int32 i = 0; i < OverlapActors.Num(); ++i){
+    for( auto overlapped : OverlapActors){
         
-        APaperPlatformerCharacter* const Hero = Cast<APaperPlatformerCharacter>(OverlapActors[i]);
+        APaperPlatformerCharacter* const Hero = Cast<APaperPlatformerCharacter>(overlapped);
         if(Hero){
-        switch(this->BoostType){
+        switch(BoostType){
             case(EnumType::HP):
-                Hero->Health += this->boost;
+                Hero->Health += boost;
                 //                if(Hero->Health >= Hero->MaxHealth){
                 //                    Hero->Health = MaxHealth;
                 //                }
                 GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("HP boost!"));
                 break;
             case(EnumType::Stamina):
-                Hero->Stamina += this->boost;
+                Hero->Stamina += boost;
                 //                if(Hero->Stamina >= Hero->MaxStamina){
                 //                    Hero->Stamina = MaxStamina;
                 //                }
                 GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Stamina boost!"));
                 break;
             case(EnumType::Attack):
-                Hero->AttackPower += this->boost;
+                Hero->AttackPower += boost;
                 //                if(Hero->AttackPower >= Hero->MaxAttackPower){
                 //                    Hero->AttackPower = MaxAttackPower;
                 //                }
