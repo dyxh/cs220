@@ -90,6 +90,18 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Attack)
     float AttackPower;
 
+	// Stamina cost of run (per tick)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
+	float StaminaRunCost;
+
+	// Stamina cost of shield (per tick)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
+	float StaminaShieldCost;
+
+	// Stamina cost of attack
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
+	float StaminaAttackCost;
+
 	// override Tick
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -124,6 +136,14 @@ protected:
 	// Handles attack start
 	UFUNCTION()
 	void OnStopAttack();
+
+	// Handles shield start
+	UFUNCTION()
+	void OnStartShield();
+
+	// Handles shield start
+	UFUNCTION()
+	void OnStopShield();
 
 	// Running animation
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)

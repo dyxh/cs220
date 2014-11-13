@@ -18,9 +18,13 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	Stamina = MaxStamina = 1000.0f;
 
 	HealthRegen = 0.0f;
-	StaminaRegen = 0.001f;
+	StaminaRegen = 0.005f;
     
     AttackPower = 100.0f;
+
+	StaminaRunCost = 10.0f;
+	StaminaShieldCost = 10.0f;
+	StaminaAttackCost = 200.0f;
 
 	// set initial battle and movement states
 	MoveState = EMoveState::Idle;
@@ -113,6 +117,8 @@ void APaperPlatformerCharacter::SetupPlayerInputComponent(UInputComponent* Input
 	InputComponent->BindAction("Run", IE_Released, this, &APaperPlatformerCharacter::OnStopRun);
 	InputComponent->BindAction("Attack", IE_Pressed, this, &APaperPlatformerCharacter::OnStartAttack);
 	InputComponent->BindAction("Attack", IE_Released, this, &APaperPlatformerCharacter::OnStopAttack);
+	InputComponent->BindAction("Shield", IE_Pressed, this, &APaperPlatformerCharacter::OnStartShield);
+	InputComponent->BindAction("Shield", IE_Released, this, &APaperPlatformerCharacter::OnStopShield);
 }
 
 void APaperPlatformerCharacter::MoveRight(float val)
@@ -198,7 +204,7 @@ void APaperPlatformerCharacter::OnStartAttack()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ATTACK!"));
 		BattleState = EBattleState::Attack;
-		Stamina -= 200.0f;
+		Stamina -= StaminaAttackCost;
         
         TArray<AActor*> EnemiesInRange;
         
@@ -221,6 +227,16 @@ void APaperPlatformerCharacter::OnStopAttack()
 	BattleState = EBattleState::Idle;
 }
 
+void APaperPlatformerCharacter::OnStartShield()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("SHIELD!"));
+	BattleState = EBattleState::Shield;
+}
+
+void APaperPlatformerCharacter::OnStopShield()
+{
+	BattleState = EBattleState::Idle;
+}
 
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
@@ -229,7 +245,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 	{
 		if (Stamina > 0)
 		{
-			Stamina -= 10.0f;
+			Stamina -= StaminaRunCost;
 		}
 		else
 		{
@@ -245,5 +261,16 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 	{
 		Stamina += MaxStamina * StaminaRegen;
 		Stamina = (Stamina > MaxStamina) ? MaxStamina : Stamina;
+	}
+
+	if (BattleState == EBattleState::Shield)
+	{
+		if (Stamina > 0)
+		{
+			Stamina -= StaminaShieldCost;
+		}
+		if (Stamina < 0.0f) {
+			Stamina = 0.0f;
+		}
 	}
 }
