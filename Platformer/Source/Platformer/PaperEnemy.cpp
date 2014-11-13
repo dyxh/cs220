@@ -8,7 +8,7 @@ APaperEnemy::APaperEnemy(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
     // set initial health
-    Health = MaxHealth = 500.0f;
+    Health = MaxHealth = 1000.0f;
 }
 
 void APaperEnemy::ReceiveDamage(float val)
