@@ -19,7 +19,7 @@ void APaperEnemy::ReceiveDamage(float val)
     
     if (Health <= 0)
     {
-        GEngine->AddOnScreenDebugMessage(2, 2.5f, FColor::Red, TEXT("Enemy defeated!!"));
+        GEngine->AddOnScreenDebugMessage(2, 5.0f, FColor::Red, TEXT("Enemy defeated!!"));
         Destroy();
     }
 }

@@ -20,7 +20,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	HealthRegen = 0.0f;
 	StaminaRegen = 0.010f;
     
-    AttackPower = 100.0f;
+    AttackPower = 500.0f;
 
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
@@ -232,8 +232,11 @@ void APaperPlatformerCharacter::OnStartAttack()
         
         UKismetSystemLibrary::BoxOverlapActors_NEW(GetWorld(), BoxPos, BoxExtent, filter, APaperEnemy::StaticClass(), ignore, EnemiesInRange);
         
+        // iterate through overlapped enemies
         for (auto &overlapped : EnemiesInRange)
         {
+            // We know that all returned actors are going to be PaperEnemies
+            // Here is where we will do any battle calculations, e.g. add sword atkpwr etc
             Cast<APaperEnemy>(overlapped)->ReceiveDamage(AttackPower);
         }
 	}
