@@ -25,7 +25,7 @@ APickup::APickup(const class FPostConstructInitializeProperties& PCIP)
     //RootComponent->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f));
     
     //create static mesh component
-    PickupMesh = PCIP.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("PickupMesh"));
+    Sprite = PCIP.CreateDefaultSubobject<UPaperFlipbookComponent>(this, TEXT("PickupMesh"));
     
     //turn physics on
     PickupMesh->SetSimulatePhysics(true);

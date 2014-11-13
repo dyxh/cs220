@@ -40,10 +40,10 @@ class PLATFORMER_API APickup : public AActor
     UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Collision)
     TSubobjectPtr<UBoxComponent> BaseCollisionComponent;
     
-    //the mesh of the pickup item
-    UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Pickup)
-    TSubobjectPtr<UStaticMeshComponent> PickupMesh;
-    
+	// The sprite of the pickup
+	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly)
+	TSubobjectPtr<class UPaperFlipbookComponent> Sprite;
+
     //called when something overlaps the sphere component
     UFUNCTION()
     void OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
