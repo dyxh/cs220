@@ -104,6 +104,12 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
 
 	// override Tick
 	virtual void Tick(float DeltaSeconds) override;
+    
+    // Maximum jumps possible
+    int MaxJumps;
+    
+    // Jumps used
+    int CurrentJumps;
 
 protected:
 	// sets up controller interface
@@ -116,6 +122,13 @@ protected:
 	// Handles jump start
 	UFUNCTION()
 	void OnStartJump();
+    
+    // Adds multiple jump functionality
+    UFUNCTION()
+    virtual bool CanJumpInternal_Implementation() const OVERRIDE;
+    
+    // Resets CurrentJumps to 0
+    virtual void OnLanded(const FHitResult& Hit) OVERRIDE;
 
 	// Handles left/right movement
 	UFUNCTION()

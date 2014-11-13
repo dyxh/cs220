@@ -18,13 +18,16 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	Stamina = MaxStamina = 1000.0f;
 
 	HealthRegen = 0.0f;
-	StaminaRegen = 0.005f;
+	StaminaRegen = 0.010f;
     
     AttackPower = 100.0f;
 
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
-	StaminaAttackCost = 200.0f;
+	StaminaAttackCost = 100.0f;
+    
+    MaxJumps = 3;
+    CurrentJumps = 0;
 
 	// set initial battle and movement states
 	MoveState = EMoveState::Idle;
@@ -111,8 +114,8 @@ void APaperPlatformerCharacter::SetupPlayerInputComponent(UInputComponent* Input
 	InputComponent->BindAxis("MoveRight", this, &APaperPlatformerCharacter::MoveRight);
 
 	// bind actions
-	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	InputComponent->BindAction("Jump", IE_Pressed, this, &APaperPlatformerCharacter::OnStartJump);
+	InputComponent->BindAction("Jump", IE_Released, this, &APaperPlatformerCharacter::OnStopJump);
 	InputComponent->BindAction("Run", IE_Pressed, this, &APaperPlatformerCharacter::OnStartRun);
 	InputComponent->BindAction("Run", IE_Released, this, &APaperPlatformerCharacter::OnStopRun);
 	InputComponent->BindAction("Attack", IE_Pressed, this, &APaperPlatformerCharacter::OnStartAttack);
@@ -171,7 +174,8 @@ void APaperPlatformerCharacter::UpdateAnimation()
 
 void APaperPlatformerCharacter::OnStartJump()
 {
-	Jump();
+    Jump();
+    CurrentJumps++;
 	UpdateAnimation();
 }
 
@@ -179,6 +183,19 @@ void APaperPlatformerCharacter::OnStopJump()
 {
 	StopJumping();
 	UpdateAnimation();
+}
+
+bool APaperPlatformerCharacter::CanJumpInternal_Implementation() const
+{
+    if (Super::CanJumpInternal_Implementation() || CurrentJumps <= MaxJumps) {
+        return true;
+    }
+    return false;
+}
+
+void APaperPlatformerCharacter::OnLanded(const FHitResult& Hit)
+{
+    CurrentJumps = 0;
 }
 
 void APaperPlatformerCharacter::OnStartRun()
