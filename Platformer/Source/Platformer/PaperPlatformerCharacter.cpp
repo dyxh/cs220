@@ -183,7 +183,7 @@ void APaperPlatformerCharacter::OnStopJump()
 
 void APaperPlatformerCharacter::OnStartRun()
 {
-	if (Stamina > 0)
+	if (Stamina > StaminaRunCost)
 	{
 		MoveState = EMoveState::Run;
 		CharacterMovement->MaxWalkSpeed = 1500.0f;
@@ -229,8 +229,11 @@ void APaperPlatformerCharacter::OnStopAttack()
 
 void APaperPlatformerCharacter::OnStartShield()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("SHIELD!"));
-	BattleState = EBattleState::Shield;
+	if (Stamina >= StaminaShieldCost)
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("SHIELD!"));
+        BattleState = EBattleState::Shield;
+    }
 }
 
 void APaperPlatformerCharacter::OnStopShield()
@@ -243,7 +246,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
     // if trying to run and actually moving
 	if ((MoveState == EMoveState::Run) && (GetVelocity().Size() > 0.0f))
 	{
-		if (Stamina > 0)
+		if (Stamina >= StaminaRunCost)
 		{
 			Stamina -= StaminaRunCost;
 		}
@@ -265,12 +268,9 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 
 	if (BattleState == EBattleState::Shield)
 	{
-		if (Stamina > 0)
+		if (Stamina >= StaminaShieldCost)
 		{
 			Stamina -= StaminaShieldCost;
-		}
-		if (Stamina < 0.0f) {
-			Stamina = 0.0f;
 		}
 	}
 }
