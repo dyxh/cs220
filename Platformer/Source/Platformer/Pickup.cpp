@@ -25,13 +25,13 @@ APickup::APickup(const class FPostConstructInitializeProperties& PCIP)
     //RootComponent->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f));
     
     //create static mesh component
-    Sprite = PCIP.CreateDefaultSubobject<UPaperFlipbookComponent>(this, TEXT("PickupMesh"));
+    Sprite = PCIP.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("PickupMesh"));
     
     //turn physics on
-    PickupMesh->SetSimulatePhysics(true);
+    Sprite->SetSimulatePhysics(true);
     
     //Attach the StaticMeshComponent to the root component
-    PickupMesh->AttachTo(RootComponent);
+    Sprite->AttachTo(RootComponent);
     
     //passes in a a function pointer that binds to a collision, and acts accordingly
     BaseCollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &APickup::OnBeginOverlap);

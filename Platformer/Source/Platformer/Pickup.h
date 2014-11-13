@@ -42,7 +42,7 @@ class PLATFORMER_API APickup : public AActor
     
 	// The sprite of the pickup
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly)
-	TSubobjectPtr<class UPaperFlipbookComponent> Sprite;
+	TSubobjectPtr<class UStaticMeshComponent> Sprite;
 
     //called when something overlaps the sphere component
     UFUNCTION()
