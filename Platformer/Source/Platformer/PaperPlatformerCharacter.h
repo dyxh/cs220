@@ -172,5 +172,10 @@ protected:
 
 	// update animation depending on state
 	void UpdateAnimation();
+    
+public:
+    // Handles taking damage
+    UFUNCTION()
+    void OnEnemyCollide(float val);
 
 };

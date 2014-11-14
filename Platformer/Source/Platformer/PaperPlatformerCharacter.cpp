@@ -261,6 +261,20 @@ void APaperPlatformerCharacter::OnStopShield()
 	BattleState = EBattleState::Idle;
 }
 
+// Handles taking damage
+void APaperPlatformerCharacter::OnEnemyCollide(float val)
+{
+    if (Health >= val)
+    {
+        Health -= val;
+    }
+    else
+    {
+        Health = 0;
+        GEngine->AddOnScreenDebugMessage(2, 5.0f, FColor::Red, TEXT("U LOSE SUCKA!!"));
+    }
+}
+
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
     // if trying to run and actually moving

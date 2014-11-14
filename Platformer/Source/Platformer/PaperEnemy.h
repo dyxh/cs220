@@ -24,4 +24,16 @@ class PLATFORMER_API APaperEnemy : public APaperCharacter
     // Calculates health loss from given damage
     UFUNCTION()
     void ReceiveDamage(float val);
+    
+    // Handles damaging the player
+    virtual void ReceiveHit(
+        class UPrimitiveComponent *MyComp,
+        AActor *Other,
+        class UPrimitiveComponent *OtherComp,
+        bool bSelfMoved,
+        FVector HitLocation,
+        FVector HitNormal,
+        FVector NormalImpulse,
+        const FHitResult &Hit
+    ) OVERRIDE;
 };
