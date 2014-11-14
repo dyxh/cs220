@@ -5,8 +5,6 @@
 #include "Engine.h"
 #include "PaperPlatformerCharacter.h"
 #include "PlatformerHUD.h"
-#include "Pickup.h"
-//#include "SpawnVolume.h"
 
 
 APlatformerGameMode::APlatformerGameMode(const class FPostConstructInitializeProperties& PCIP)
