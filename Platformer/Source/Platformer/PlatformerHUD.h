@@ -14,7 +14,7 @@ class PLATFORMER_API APlatformerHUD : public AHUD
 	GENERATED_UCLASS_BODY()
 
 	// stores HUD font
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Font)
 	UFont* HUDFont;
 	
 	// primary draw call for the HUD

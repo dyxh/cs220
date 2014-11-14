@@ -306,5 +306,9 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 		{
 			Stamina -= StaminaShieldCost;
 		}
+        else
+        {
+            BattleState = EBattleState::Idle;
+        }
 	}
 }
