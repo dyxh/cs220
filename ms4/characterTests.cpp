@@ -1,18 +1,22 @@
 /*
+TO DO
 - items (betty & max)
     update stamina/HP/attack power/defense
     multiple items
     world items (keys?)
-- Xdeath state
 - menus? : Change levels
-- Xkilling enemies
-- killing enemies item drops
-- Xexperience, stats
-- Xcharacter navigation (swim, climb, interact with objects)?
+- killing enemies - item drops
 - save game
-- LEARNED SKILLS
-    - double jump
+- Learned Skills
     - snowball
+
+DONE
+- death state
+- killing enemies - experience
+- experience, stats
+- character navigation (swim, climb, interact with objects)
+- Learned Skills
+    - double jump
 */
 
 
@@ -136,11 +140,3 @@ TEST_F(TEST_CHARACTER, TEST_DOUBLEJUMP)
     character.OnLand = true;
     EXPECT_TRUE(character.CurrentJumps == 0);
 }
-
-
-
-
-
-
-
-
