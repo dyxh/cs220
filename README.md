@@ -5,7 +5,9 @@
 * "Gatelike Adversaries Meeting their End"
 * "Gigabytes And Megabytes Emulating"
 
-### [Submission Repository](https://github.com/moniker001/cs22001_GAME)
+### Submission Repositories
+* [Milestone2 Repo](https://github.com/moniker001/cs22001_GAME)
+* [Milestone3 Repo](https://github.com/j-salem/CS220)
 
 ### Important resources
 * [Game programming patterns](http://gameprogrammingpatterns.com/)
@@ -28,10 +30,6 @@
 
 ### Previous work
 * https://docs.google.com/document/d/1YzFL1l9lMzscGx680sZzfWUoiNkIdpLQuX7_LA9_9P0/edit
-
-### Tutorial for Game in Libgdx
-* [DragonTale](https://www.youtube.com/watch?v=9dzhgsVaiSo&list=PL-2t7SM0vDfcIedoMIghzzgQqZq45jYGv&index=1)
-* 
 
 ### Possible Unreal Unit Testing Framework?
 * https://docs.unrealengine.com/latest/INT/Programming/Automation/index.html
