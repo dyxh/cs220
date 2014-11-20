@@ -6,8 +6,9 @@
 * "Gigabytes And Megabytes Emulating"
 
 ### Submission Repositories
-* [Milestone2 Repo](https://github.com/moniker001/cs22001_GAME)
-* [Milestone3 Repo](https://github.com/j-salem/CS220)
+* [Milestone2](https://github.com/moniker001/cs22001_GAME/tree/master/milestone3)
+* [Milestone3](https://github.com/j-salem/CS220)
+* [Milestone4](https://github.com/moniker001/cs22001_GAME/tree/master/milestone4)
 
 ### Important resources
 * [Game programming patterns](http://gameprogrammingpatterns.com/)
