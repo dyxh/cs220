@@ -1,21 +1,3 @@
-/*
-- items (betty & max)
-    update stamina/HP/attack power/defense
-    multiple items
-    world items (keys?)
-- Xdeath state
-- menus? : Change levels
-- Xkilling enemies
-- killing enemies item drops
-- Xexperience, stats
-- Xcharacter navigation (swim, climb, interact with objects)?
-- save game
-- LEARNED SKILLS
-    - double jump
-    - snowball
-*/
-
-
 #include <stdio.h>
 #include <gtest/gtest.h>
 #include "APaperPlatformerCharacter.h"
@@ -109,8 +91,6 @@ TEST_F(TEST_CHARACTER, TEST_MURDER)
     EXPECT_TRUE(character.CurrentXP = currentXP + killXP);
 }
 
-
-
 TEST_F(TEST_CHARACTER, TEST_DOUBLEJUMP)
 {
     character.MaxJumps = 2;
@@ -137,10 +117,26 @@ TEST_F(TEST_CHARACTER, TEST_DOUBLEJUMP)
     EXPECT_TRUE(character.CurrentJumps == 0);
 }
 
+TEST_F(TEST_CHARACTER, TEST_SAVEGAME)
+{
+    LoadGame();
+    int level = CurrentGame.Level;
+    int location = CurrentGame.Location;
 
-
-
-
-
-
-
+    float maxHealth = character.MaxHealth;
+    float attack = character.AttackPower;
+    int maxJumps = character.MaxJumps;
+    
+    // apply changes
+    GoToNextLevel();
+    
+    // get the state
+    SaveGame();
+    
+    // compare the state
+    EXPECT_TRUE(CurrentGame.Level == level + 1);
+    EXPECT_TRUE(character.Health == character.MaxHealth);
+    EXPECT_TRUE(character.MaxStamina == character.Stamina);
+    EXPECT_TRUE(character.Attack == attack);
+    EXPECT_TRUE(character.maxJumps == maxJumps);
+}
