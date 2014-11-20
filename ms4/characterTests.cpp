@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-=======
-/*
-TO DO
-- items (betty & max)
-    update stamina/HP/attack power/defense
-    multiple items
-    world items (keys?)
-- menus? : Change levels
-- killing enemies - item drops
-- save game
-- Learned Skills
-    - snowball
-
-DONE
-- death state
-- killing enemies - experience
-- experience, stats
-- character navigation (swim, climb, interact with objects)
-- Learned Skills
-    - double jump
-*/
-
-
->>>>>>> 81f02b394d35901b19ac118ec81bd45a148ef2a5
 #include <stdio.h>
 #include <gtest/gtest.h>
 #include "APaperPlatformerCharacter.h"
@@ -166,5 +141,3 @@ TEST_F(TEST_CHARACTER, TEST_SAVEGAME)
     EXPECT_TRUE(character.Attack == attack);
     EXPECT_TRUE(character.maxJumps == maxJumps);
 }
-=======
->>>>>>> 81f02b394d35901b19ac118ec81bd45a148ef2a5
