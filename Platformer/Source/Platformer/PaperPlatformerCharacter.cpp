@@ -312,3 +312,32 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
         }
 	}
 }
+
+void APaperPlatformerCharacter::OnItemPickup(float boost, EnumType::bType type)
+{
+    switch (type) {
+    case (EnumType::HP):
+        Health += boost;
+        if (Health >= MaxHealth){
+            Health = MaxHealth;
+        }
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("HP boost!"));
+        break;
+    case(EnumType::Stamina):
+        Stamina += boost;
+            if (Stamina >= MaxStamina){
+                Stamina = MaxStamina;
+            }
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Stamina boost!"));
+        break;
+//    case(EnumType::Attack):
+//        AttackPower += boost;
+//            if (AttackPower >= MaxAttackPower){
+//                AttackPower = MaxAttackPower;
+//            }
+//        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Attack boost!"));
+        break;
+    default:
+        break;
+    }
+}

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "PaperCharacter.h"
+#include "Pickup.h"
 #include "PaperPlatformerCharacter.generated.h"
 
 
@@ -177,5 +178,7 @@ public:
     // Handles taking damage
     UFUNCTION()
     void OnEnemyCollide(float val);
-
+    
+    UFUNCTION()
+    void OnItemPickup(float boost, EnumType::bType type);
 };

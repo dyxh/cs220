@@ -35,5 +35,5 @@ class PLATFORMER_API APaperEnemy : public APaperCharacter
         FVector HitNormal,
         FVector NormalImpulse,
         const FHitResult &Hit
-    ) OVERRIDE;
+    ) override;
 };
