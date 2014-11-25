@@ -6,6 +6,8 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "PaperEnemy.h"
 
+#include "CSaveGame.h"
+#include "Kismet/GameplayStatics.h"
 
 APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
@@ -356,4 +358,32 @@ void APaperPlatformerCharacter::OnItemPickup(float boost, EnumType::bType type)
 	default:
 		break;
 	}
+}
+
+void APaperPlatformerCharacter::SaveGame()
+{
+    
+    UCSaveGame* SaveGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
+    SaveGameInstance->MaxHealth = MaxHealth;
+    SaveGameInstance->MaxStam = MaxStamina;
+    SaveGameInstance->Attack = AttackPower;
+    SaveGameInstance->MaxJumps = MaxJumps;
+    SaveGameInstance->MaxXP = MaxExperience;
+    SaveGameInstance->CurrentXP = Experience;
+    SaveGameInstance->CurrentLevel = Level;
+    UGameplayStatics::SaveGameToSlot(SaveGameInstance, SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex);
+}
+
+void APaperPlatformerCharacter::LoadGame()
+{
+    UCSaveGame* LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
+    LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::LoadGameFromSlot(LoadGameInstance->SaveSlotName, LoadGameInstance->UserIndex));
+    MaxHealth = LoadGameInstance->MaxHealth;
+    MaxStamina = LoadGameInstance->MaxStam;
+    AttackPower = LoadGameInstance->Attack;
+    MaxJumps = LoadGameInstance->MaxJumps;
+    MaxExperience = LoadGameInstance->MaxXP;
+    Experience = LoadGameInstance->CurrentXP;
+    Level = LoadGameInstance->CurrentLevel;
+    
 }

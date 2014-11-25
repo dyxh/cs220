@@ -189,6 +189,13 @@ protected:
 	// update animation depending on state
 	void UpdateAnimation();
     
+    // Handles saving and loading of character information
+    UFUNCTION()
+    void SaveGame();
+    
+    UFUNCTION()
+    void LoadGame();
+    
 public:
 	// Handles taking damage
 	UFUNCTION()
