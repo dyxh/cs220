@@ -19,15 +19,21 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 
 	HealthRegen = 0.0f;
 	StaminaRegen = 0.010f;
-    
-    AttackPower = 500.0f;
+
+	AttackPower = 500.0f;
+	AttackPowerIncrease = 100.0f;
+
+	Experience = 0;
+	MaxExperience = 100;
+	MaxExperienceIncrease = 50;
+	Level = 1;
 
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
 	StaminaAttackCost = 100.0f;
-    
-    MaxJumps = 3;
-    CurrentJumps = 0;
+
+	MaxJumps = 3;
+	CurrentJumps = 0;
 
 	// set initial battle and movement states
 	MoveState = EMoveState::Idle;
@@ -62,12 +68,12 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationRoll = false;
 
-    // Setup damage box
-    DamageBox = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("DamageBox"));
-    DamageBox->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f)); // extends 40 units from the character
-    DamageBox->AttachTo(RootComponent);
-    DamageBox->RelativeLocation = FVector(40.0f, 0.0f, 0.0f);
-    
+	// Setup damage box
+	DamageBox = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("DamageBox"));
+	DamageBox->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f)); // extends 40 units from the character
+	DamageBox->AttachTo(RootComponent);
+	DamageBox->RelativeLocation = FVector(40.0f, 0.0f, 0.0f);
+
 	// attach camera boom to capsule
 	CameraBoom = PCIP.CreateDefaultSubobject<USpringArmComponent>(this, TEXT("CameraBoom"));
 	CameraBoom->AttachTo(RootComponent);
@@ -174,8 +180,8 @@ void APaperPlatformerCharacter::UpdateAnimation()
 
 void APaperPlatformerCharacter::OnStartJump()
 {
-    Jump();
-    CurrentJumps++;
+	Jump();
+	CurrentJumps++;
 	UpdateAnimation();
 }
 
@@ -187,15 +193,15 @@ void APaperPlatformerCharacter::OnStopJump()
 
 bool APaperPlatformerCharacter::CanJumpInternal_Implementation() const
 {
-    if (Super::CanJumpInternal_Implementation() || CurrentJumps <= MaxJumps) {
-        return true;
-    }
-    return false;
+	if (Super::CanJumpInternal_Implementation() || CurrentJumps <= MaxJumps) {
+		return true;
+	}
+	return false;
 }
 
 void APaperPlatformerCharacter::OnLanded(const FHitResult& Hit)
 {
-    CurrentJumps = 0;
+	CurrentJumps = 0;
 }
 
 void APaperPlatformerCharacter::OnStartRun()
@@ -215,30 +221,40 @@ void APaperPlatformerCharacter::OnStopRun()
 
 void APaperPlatformerCharacter::OnStartAttack()
 {
-    // going to use the following function to get all actors inside the damagebox
-    // https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UKismetSystemLibrary/BoxOverlapActors_NEW/index.html
+	// going to use the following function to get all actors inside the damagebox
+	// https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UKismetSystemLibrary/BoxOverlapActors_NEW/index.html
 	if (Stamina > 200.0f)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ATTACK!"));
 		BattleState = EBattleState::Attack;
 		Stamina -= StaminaAttackCost;
-        
-        TArray<AActor*> EnemiesInRange;
-        
-        FVector BoxPos = DamageBox->GetComponentLocation();
-        FVector BoxExtent = DamageBox->GetScaledBoxExtent();
-        const TArray<TEnumAsByte<EObjectTypeQuery>> filter; //not used
-        const TArray<AActor*> ignore; //not used
-        
-        UKismetSystemLibrary::BoxOverlapActors_NEW(GetWorld(), BoxPos, BoxExtent, filter, APaperEnemy::StaticClass(), ignore, EnemiesInRange);
-        
-        // iterate through overlapped enemies
-        for (auto &overlapped : EnemiesInRange)
-        {
-            // We know that all returned actors are going to be PaperEnemies
-            // Here is where we will do any battle calculations, e.g. add sword atkpwr etc
-            Cast<APaperEnemy>(overlapped)->ReceiveDamage(AttackPower);
-        }
+
+		TArray<AActor*> EnemiesInRange;
+
+		FVector BoxPos = DamageBox->GetComponentLocation();
+		FVector BoxExtent = DamageBox->GetScaledBoxExtent();
+		const TArray<TEnumAsByte<EObjectTypeQuery>> filter; //not used
+		const TArray<AActor*> ignore; //not used
+
+		UKismetSystemLibrary::BoxOverlapActors_NEW(GetWorld(), BoxPos, BoxExtent, filter, APaperEnemy::StaticClass(), ignore, EnemiesInRange);
+
+		// iterate through overlapped enemies
+		for (auto &overlapped : EnemiesInRange)
+		{
+			// We know that all returned actors are going to be PaperEnemies
+			// Here is where we will do any battle calculations, e.g. add sword atkpwr etc
+			Cast<APaperEnemy>(overlapped)->ReceiveDamage(AttackPower);
+			if (Cast<APaperEnemy>(overlapped)->Health <= 0.0f)
+			{
+				Experience += Cast<APaperEnemy>(overlapped)->ExperienceEnemy;
+				if (Experience >= MaxExperience)
+				{
+					Level += 1;
+					Experience = 0;
+					MaxExperience += MaxExperienceIncrease;
+				}
+			}
+		}
 	}
 }
 
@@ -250,10 +266,10 @@ void APaperPlatformerCharacter::OnStopAttack()
 void APaperPlatformerCharacter::OnStartShield()
 {
 	if (Stamina >= StaminaShieldCost)
-    {
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("SHIELD!"));
-        BattleState = EBattleState::Shield;
-    }
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("SHIELD!"));
+		BattleState = EBattleState::Shield;
+	}
 }
 
 void APaperPlatformerCharacter::OnStopShield()
@@ -264,20 +280,20 @@ void APaperPlatformerCharacter::OnStopShield()
 // Handles taking damage
 void APaperPlatformerCharacter::OnEnemyCollide(float val)
 {
-    if (Health >= val)
-    {
-        Health -= val;
-    }
-    else
-    {
-        Health = 0;
-        GEngine->AddOnScreenDebugMessage(2, 5.0f, FColor::Red, TEXT("U LOSE SUCKA!!"));
-    }
+	if (Health >= val)
+	{
+		Health -= val;
+	}
+	else
+	{
+		Health = 0;
+		GEngine->AddOnScreenDebugMessage(2, 5.0f, FColor::Red, TEXT("U LOSE SUCKA!!"));
+	}
 }
 
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
-    // if trying to run and actually moving
+	// if trying to run and actually moving
 	if ((MoveState == EMoveState::Run) && (GetVelocity().Size() > 0.0f))
 	{
 		if (Stamina >= StaminaRunCost)
@@ -289,11 +305,11 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 			OnStopRun();
 		}
 	}
-    else // if not moving
-    {
-        OnStopRun();
-    }
-	
+	else // if not moving
+	{
+		OnStopRun();
+	}
+
 	if ((MoveState == EMoveState::Idle) && (Stamina < MaxStamina) && (BattleState == EBattleState::Idle)) // stamina regen
 	{
 		Stamina += MaxStamina * StaminaRegen;
@@ -306,38 +322,38 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 		{
 			Stamina -= StaminaShieldCost;
 		}
-        else
-        {
-            BattleState = EBattleState::Idle;
-        }
+		else
+		{
+			BattleState = EBattleState::Idle;
+		}
 	}
 }
 
 void APaperPlatformerCharacter::OnItemPickup(float boost, EnumType::bType type)
 {
-    switch (type) {
-    case (EnumType::HP):
-        Health += boost;
-        if (Health >= MaxHealth){
-            Health = MaxHealth;
-        }
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("HP boost!"));
-        break;
-    case(EnumType::Stamina):
-        Stamina += boost;
-            if (Stamina >= MaxStamina){
-                Stamina = MaxStamina;
-            }
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Stamina boost!"));
-        break;
-//    case(EnumType::Attack):
-//        AttackPower += boost;
-//            if (AttackPower >= MaxAttackPower){
-//                AttackPower = MaxAttackPower;
-//            }
-//        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Attack boost!"));
-        break;
-    default:
-        break;
-    }
+	switch (type) {
+	case (EnumType::HP) :
+		Health += boost;
+		if (Health >= MaxHealth){
+			Health = MaxHealth;
+		}
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("HP boost!"));
+		break;
+	case(EnumType::Stamina) :
+		Stamina += boost;
+		if (Stamina >= MaxStamina){
+			Stamina = MaxStamina;
+		}
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Stamina boost!"));
+		break;
+		//    case(EnumType::Attack):
+		//        AttackPower += boost;
+		//            if (AttackPower >= MaxAttackPower){
+		//                AttackPower = MaxAttackPower;
+		//            }
+		//        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Attack boost!"));
+		break;
+	default:
+		break;
+	}
 }

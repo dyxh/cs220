@@ -24,8 +24,12 @@ void APlatformerHUD::DrawHUD()
 
 	// get the character and print its Health and Stamina
 	APaperPlatformerCharacter* MyCharacter = Cast<APaperPlatformerCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
+	FString LevelString = FString::Printf(TEXT("Level : %10d"), MyCharacter->Level);
+	FString ExpString = FString::Printf(TEXT("Exp : %10d / %10d"), MyCharacter->Experience, MyCharacter->MaxExperience);
 	FString HealthString = FString::Printf(TEXT("Health : %10.1f / %10.1f"), MyCharacter->Health, MyCharacter->MaxHealth);
 	FString StaminaString = FString::Printf(TEXT("Stamina : %10.1f / %10.1f"), MyCharacter->Stamina, MyCharacter->MaxStamina);
-	DrawText(HealthString, FColor::Red, 25, 25, NULL);
-	DrawText(StaminaString, FColor::Black, 25, 45, NULL);
+	DrawText(LevelString, FColor::Blue, 25, 25, NULL);
+	DrawText(ExpString, FColor::Blue, 25, 45, NULL);
+	DrawText(HealthString, FColor::Red, 25, 65, NULL);
+	DrawText(StaminaString, FColor::Black, 25, 85, NULL);
 }

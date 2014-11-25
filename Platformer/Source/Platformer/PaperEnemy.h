@@ -21,6 +21,9 @@ class PLATFORMER_API APaperEnemy : public APaperCharacter
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Health)
     float MaxHealth;
 	
+	// Experience that enemy will give player
+	UINT32 ExperienceEnemy;
+
     // Calculates health loss from given damage
     UFUNCTION()
     void ReceiveDamage(float val);

@@ -112,6 +112,21 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
     // Jumps used
     int CurrentJumps;
 
+	// Current experience of player
+	int Experience;
+
+	// Maximum experience for current level
+	int MaxExperience;
+
+	// Maximum experience increase per Level Increase
+	int MaxExperienceIncrease;
+
+	// Current level of player
+	int Level;
+
+	// Attack Power Increase per Level Increase
+	float AttackPowerIncrease;
+
 protected:
 	// sets up controller interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
@@ -126,10 +141,10 @@ protected:
     
     // Adds multiple jump functionality
     UFUNCTION()
-    virtual bool CanJumpInternal_Implementation() const OVERRIDE;
+    virtual bool CanJumpInternal_Implementation() const override;
     
     // Resets CurrentJumps to 0
-    virtual void OnLanded(const FHitResult& Hit) OVERRIDE;
+	virtual void OnLanded(const FHitResult& Hit) override;
 
 	// Handles left/right movement
 	UFUNCTION()
@@ -175,10 +190,10 @@ protected:
 	void UpdateAnimation();
     
 public:
-    // Handles taking damage
-    UFUNCTION()
-    void OnEnemyCollide(float val);
-    
-    UFUNCTION()
-    void OnItemPickup(float boost, EnumType::bType type);
+	// Handles taking damage
+	UFUNCTION()
+	void OnEnemyCollide(float val);
+
+	UFUNCTION()
+	void OnItemPickup(float boost, EnumType::bType type);
 };

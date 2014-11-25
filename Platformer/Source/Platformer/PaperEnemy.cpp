@@ -3,13 +3,16 @@
 #include "Platformer.h"
 #include "PaperEnemy.h"
 #include "PaperPlatformerCharacter.h"
-
+#include "Kismet/KismetSystemLibrary.h"
 
 APaperEnemy::APaperEnemy(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
     // set initial health
     Health = MaxHealth = 1000.0f;
+
+	ExperienceEnemy = 50;
+
 }
 
 void APaperEnemy::ReceiveDamage(float val)
