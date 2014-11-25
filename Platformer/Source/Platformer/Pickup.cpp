@@ -17,7 +17,7 @@ APickup::APickup(const class FPostConstructInitializeProperties& PCIP)
     BaseCollisionComponent = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("box"));
     RootComponent = BaseCollisionComponent;
     
-    BaseCollisionComponent->SetBoxExtent(FVector(100.0f, 0.0f, 100.0f));
+    BaseCollisionComponent->SetBoxExtent(FVector(50.0f, 0.0f, 50.0f));
     //BaseCollisionComponent->AttachTo(RootComponent);
     //extends 40 units from character
     //RootComponent->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f));

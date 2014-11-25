@@ -35,6 +35,7 @@ void APaperEnemy::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other, c
         if (Hero->BattleState != EBattleState::Shield)
         {
             Hero->OnEnemyCollide(20.0f);
+            Hero->CharacterMovement->Velocity += HitNormal * FVector(1000.0f, 0.0f, 250.0f);
         }
     }
     
