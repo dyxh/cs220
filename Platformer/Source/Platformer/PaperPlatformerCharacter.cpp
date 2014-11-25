@@ -57,7 +57,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	CapsuleComponent->SetCapsuleHalfHeight(60.0f);
 	CapsuleComponent->SetCapsuleRadius(40.0f);
 
-	//ignore pitch and roll
+	// ignore pitch and roll
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationRoll = false;

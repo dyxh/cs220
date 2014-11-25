@@ -27,9 +27,7 @@ class PLATFORMER_API APickup : public AActor
 {
 	GENERATED_UCLASS_BODY()
     
-	
     //amount of hp/stamina/attack boosted
-	
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pickup)
 	float boost;
     
@@ -47,7 +45,4 @@ class PLATFORMER_API APickup : public AActor
     //called when something overlaps the sphere component
     UFUNCTION()
     void OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
-    
-    //UFUNCTION()
-    //void OnBeginOverlap();
 };

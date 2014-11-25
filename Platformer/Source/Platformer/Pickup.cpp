@@ -11,15 +11,14 @@ APickup::APickup(const class FPostConstructInitializeProperties& PCIP)
     
     boost = (rand() % 1000) / 10;//between 0 and 100, in 10s
     //int index = (rand() % 3);//0, 1, or 2
-    BoostType = EnumType::HP;//either HP, Stamina, or Attack
-    
+    BoostType = EnumType::HP; //either HP, Stamina, or Attack
     
     //create root SphereComponent to handle the pickup's collision
     BaseCollisionComponent = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("box"));
-    //RootComponent = BaseCollisionComponent;
+    RootComponent = BaseCollisionComponent;
     
     BaseCollisionComponent->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f));
-    BaseCollisionComponent->AttachTo(RootComponent);
+//    BaseCollisionComponent->AttachTo(RootComponent);
     //extends 40 units from character
     //RootComponent->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f));
     
@@ -39,7 +38,10 @@ APickup::APickup(const class FPostConstructInitializeProperties& PCIP)
 
 
 //update stats and destroy item
-void APickup::OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult){
+void APickup::OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+    
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Item overlap detected."));
     
     //array of all actors that have
     TArray<AActor*> OverlapActors;
