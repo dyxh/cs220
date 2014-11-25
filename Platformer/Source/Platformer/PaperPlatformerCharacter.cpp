@@ -42,7 +42,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 		FConstructorStatics()
 			: RunningAnimationAsset(TEXT("/Game/Flipbooks/PlayerRunning.PlayerRunning")) ///Game/KenneySpritePack/Players/Green/alienGreen_walk.alienGreen_walk
 			, IdleAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdle.PlayerIdle")) //KenneySpritePack/Players/Green/alienGreen_idle.alienGreen_idle
-			, JumpAnimationAsset(TEXT("/Game/KenneySpritePack/Players/Green/alienGreen_jump.alienGreen_jump"))
+			, JumpAnimationAsset(TEXT("/Game/Flipbooks/PlayerJump.PlayerJump"))
 		{
 		}
 	};
