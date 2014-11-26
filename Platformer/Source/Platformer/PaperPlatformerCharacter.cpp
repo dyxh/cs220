@@ -35,7 +35,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
         Level = 1;
         
         //set number of possible jumps
-        MaxJumps = 3;
+        MaxJumps = 1;
     }
     else
     {
@@ -432,11 +432,13 @@ void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type 
         case (EBoostType::Attack) :
             AttackBuffDuration += 20;
             break;
+        case (EBoostType::Jump) :
+            MaxJumps += 1;
+            break;
         default:
             break;
 	}
 }
-
 
 // Set the properties we want to save and save those to disk, using the SaveGameInstance
 void APaperPlatformerCharacter::SaveGame()
