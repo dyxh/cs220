@@ -12,6 +12,7 @@ namespace EMoveState
 	{
 		Idle		UMETA(DisplayName = "Idle"),
 		Run			UMETA(DisplayName = "Run"),
+        Death       UMETA(DisplayName = "Death"),
 	};
 }
 
@@ -159,6 +160,7 @@ protected:
 	// Handles attack start
 	UFUNCTION()
 	void OnStopAttack();
+    
 
 	// Handles shield start
 	UFUNCTION()
