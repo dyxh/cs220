@@ -167,25 +167,28 @@ void APaperPlatformerCharacter::SetupPlayerInputComponent(UInputComponent* Input
 
 void APaperPlatformerCharacter::MoveRight(float val)
 {
-	UpdateAnimation();
+	if (MoveState != EMoveState::Death)
+    {
+        UpdateAnimation();
 
-	if ((Controller != NULL) && (val != 0.0f))
-	{
-		// only moves in x axis
-		const FVector Direction = FVector(1.0f, 0.0f, 0.0f);
+        if ((Controller != NULL) && (val != 0.0f))
+        {
+            // only moves in x axis
+            const FVector Direction = FVector(1.0f, 0.0f, 0.0f);
 
-		// change rotation of character so animation face correct direction
-		if (val < 0.0f)
-		{
-			Controller->SetControlRotation(FRotator(0.0, 180.0f, 0.0f)); // face left
-		}
-		else if (val > 0.0f)
-		{
-			Controller->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f)); // face right
-		}
+            // change rotation of character so animation face correct direction
+            if (val < 0.0f)
+            {
+                Controller->SetControlRotation(FRotator(0.0, 180.0f, 0.0f)); // face left
+            }
+            else if (val > 0.0f)
+            {
+                Controller->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f)); // face right
+            }
 
-		AddMovementInput(Direction, val);
-	}
+            AddMovementInput(Direction, val);
+        }
+    }
 }
 
 void APaperPlatformerCharacter::UpdateAnimation()
@@ -262,7 +265,11 @@ void APaperPlatformerCharacter::OnStartAttack()
 {
 	// going to use the following function to get all actors inside the hitbox
 	// https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UKismetSystemLibrary/BoxOverlapActors_NEW/index.html
+<<<<<<< HEAD
 	if (Stamina >= StaminaAttackCost)
+=======
+    if (Stamina > 200.0f && MoveState != EMoveState::Death)
+>>>>>>> be63bbeca6e03e84cd47dce6e1add67c3fa67af0
 	{
         AttackDuration = 0.3f;
 		
@@ -301,7 +308,12 @@ void APaperPlatformerCharacter::OnEnemyCollide(float val)
 	else if (Health <= val && Health > 0)
     {
 		Health = 0;
+<<<<<<< HEAD
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ENTER DEATH STATE."));
+=======
+        MoveState = EMoveState::Death;
+		GEngine->AddOnScreenDebugMessage(2, 5.0f, FColor::Red, TEXT("U LOSE SUCKA!!"));
+>>>>>>> be63bbeca6e03e84cd47dce6e1add67c3fa67af0
 	}
 }
 
@@ -366,8 +378,15 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
         AttackPower = BaseAttackPower;
     }
     
+    
+    // if dead, stop character
+    if (MoveState == EMoveState::Death)
+    {
+        TurnOff();
+        
+    }
 	// if sprinting and moving
-	if ((MoveState == EMoveState::Run) && (GetVelocity().Size() > 0.0f))
+	else if ((MoveState == EMoveState::Run) && (GetVelocity().Size() > 0.0f))
 	{
 		if (Stamina >= StaminaRunCost) // if can sprint
 		{
@@ -465,3 +484,4 @@ bool APaperPlatformerCharacter::LoadGame()
     
     
 }
+
