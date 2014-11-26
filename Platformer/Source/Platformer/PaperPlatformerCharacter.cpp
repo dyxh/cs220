@@ -63,6 +63,8 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	RunningAnimation = ConstructorStatics.RunningAnimationAsset.Get();
 	IdleAnimation = ConstructorStatics.IdleAnimationAsset.Get();
 	JumpAnimation = ConstructorStatics.JumpAnimationAsset.Get();
+    IdleAttackAnimation = ConstructorStatics.IdleAttackAnimationAsset.Get();
+    IdleShieldAnimation = ConstructorStatics.IdleShieldAnimationAsset.Get();
 	Sprite->SetFlipbook(IdleAnimation);
 
 	// set capsule size
