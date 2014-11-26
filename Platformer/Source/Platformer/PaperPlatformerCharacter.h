@@ -75,11 +75,11 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
     
     // CURRENT attack power of the Hero
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Attack)
-    int32 AttackPower;
+    float AttackPower;
     
     // BASE (without modifier) attack power of the Hero
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Attack)
-    int32 BaseAttackPower;
+    float BaseAttackPower;
     
     // DURRATION of an attack power buff from an AttackPickup
     UPROPERTY(VisibleAnywhere, BluePrintReadWrite, Category = Attack)

@@ -45,7 +45,7 @@ void APlatformerHUD::DrawHUD()
     }
     
     // create's Hero's health status string
-    FString AttackBuffString = FString::Printf(TEXT("ATK : %d > BUFF : %.1f"),
+    FString AttackBuffString = FString::Printf(TEXT("ATK : %.0f > BUFF : %.1f"),
                                                Hero->AttackPower,
                                                Hero->AttackBuffDuration);
     

@@ -18,7 +18,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	PrimaryActorTick.bCanEverTick = true;
 
     // If saved file exists, load it
-    if (!LoadGame())
+    if (LoadGame())
     {
         // set base health
         Health = MaxHealth = 10;
@@ -27,7 +27,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
         Stamina = MaxStamina = 1000.0f;
 
         // set base attack power
-        AttackPower = BaseAttackPower = 5;
+        AttackPower = BaseAttackPower = 10.0f;
 
         // set experience
         Experience = 0;
@@ -37,7 +37,6 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
         //set number of possible jumps
         MaxJumps = 3;
     }
-    
     else
     {
         //Initialize health, stamina, and attack power to their initial
@@ -49,7 +48,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
     
     // Set attack power increase per level
     // duration of attack power increase buffs
-    AttackPowerIncrease = 3;
+    AttackPowerIncrease = 3.0f;
     AttackBuffDuration = 0.0f;
     AttackDuration = 0.0f;
     
@@ -106,9 +105,9 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 
 	// Setup damage box
 	Hitbox = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("Hitbox"));
-	Hitbox->SetBoxExtent(FVector(60.0f, 0.0f, 20.0f)); // extends 40 units from the character
+	Hitbox->SetBoxExtent(FVector(60.0f, 0.0f, 25.0f));
     Hitbox->AttachTo(RootComponent);
-	Hitbox->RelativeLocation = FVector(55.0f, 0.0f, 0.0f);
+	Hitbox->RelativeLocation = FVector(55.0f, 0.0f, 10.0f);
 
 	// attach camera boom to capsule
 	CameraBoom = PCIP.CreateDefaultSubobject<USpringArmComponent>(this, TEXT("CameraBoom"));
@@ -265,46 +264,10 @@ void APaperPlatformerCharacter::OnStartAttack()
 	// https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UKismetSystemLibrary/BoxOverlapActors_NEW/index.html
 	if (Stamina >= StaminaAttackCost)
 	{
-        AttackDuration = 0.35f;
+        AttackDuration = 0.3f;
 		
 		BattleState = EBattleState::Attack;
 		Stamina -= StaminaAttackCost;
-
-		TArray<AActor*> EnemiesInRange;
-
-		FVector BoxPos = Hitbox->GetComponentLocation();
-		FVector BoxExtent = Hitbox->GetScaledBoxExtent();
-		const TArray<TEnumAsByte<EObjectTypeQuery>> filter; //not used
-		const TArray<AActor*> ignore; //not used
-
-		UKismetSystemLibrary::BoxOverlapActors_NEW(GetWorld(), BoxPos, BoxExtent, filter, APaperEnemy::StaticClass(), ignore, EnemiesInRange);
-
-		// iterate through overlapped enemies
-		for (auto &overlapped : EnemiesInRange)
-		{
-			// We know that all returned actors are going to be PaperEnemies
-			// Here is where we will do any battle calculations, e.g. add sword atkpwr etc
-            APaperEnemy* Enemy = Cast<APaperEnemy>(overlapped);
-            if (Enemy)
-            {
-                GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Hit."));
-                Enemy->ReceiveDamage(AttackPower);
-            }
-            
-			if (Cast<APaperEnemy>(overlapped)->Health <= 0.0f)
-			{
-				Experience += Cast<APaperEnemy>(overlapped)->ExperienceValue;
-				if (Experience >= MaxExperience)
-				{
-					Level += 1;
-					Experience = 0;
-					MaxExperience += MaxExperienceIncrease;
-					AttackPower += AttackPowerIncrease;
-                    SaveGame();
-                    
-				}
-			}
-		}
 	}
 }
 
@@ -347,10 +310,49 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
     if (AttackDuration >= DeltaSeconds)
     {
         AttackDuration -= DeltaSeconds;
+        
+        BattleState = EBattleState::Attack;
+        
+        TArray<AActor*> EnemiesInRange;
+        
+        FVector BoxPos = Hitbox->GetComponentLocation();
+        FVector BoxExtent = Hitbox->GetScaledBoxExtent();
+        const TArray<TEnumAsByte<EObjectTypeQuery>> filter; //not used
+        const TArray<AActor*> ignore; //not used
+        
+        UKismetSystemLibrary::BoxOverlapActors_NEW(GetWorld(), BoxPos, BoxExtent, filter, APaperEnemy::StaticClass(), ignore, EnemiesInRange);
+        
+        // iterate through overlapped enemies
+        for (auto &overlapped : EnemiesInRange)
+        {
+            // We know that all returned actors are going to be PaperEnemies
+            // Here is where we will do any battle calculations, e.g. add sword atkpwr etc
+            APaperEnemy* Enemy = Cast<APaperEnemy>(overlapped);
+            if (Enemy)
+            {
+                Enemy->ReceiveDamage(AttackPower * DeltaSeconds);
+            }
+            
+            if (Cast<APaperEnemy>(overlapped)->Health <= 0.0f)
+            {
+                Experience += Cast<APaperEnemy>(overlapped)->ExperienceValue;
+                if (Experience >= MaxExperience)
+                {
+                    Level += 1;
+                    Experience = 0;
+                    MaxExperience += MaxExperienceIncrease;
+                    BaseAttackPower += AttackPowerIncrease;
+//                    SaveGame();
+                    
+                }
+            }
+        }
+        
     }
     else
     {
         AttackDuration = 0.0f;
+        BattleState = EBattleState::Idle;
     }
 
     if (AttackBuffDuration >= DeltaSeconds)
@@ -431,7 +433,7 @@ void APaperPlatformerCharacter::SaveGame()
     UCSaveGame* SaveGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
     SaveGameInstance->MaxHealth = MaxHealth;
     SaveGameInstance->MaxStam = MaxStamina;
-    SaveGameInstance->Attack = BaseAttackPower;
+    SaveGameInstance->BaseAttackPower = BaseAttackPower;
     SaveGameInstance->MaxJumps = MaxJumps;
     SaveGameInstance->MaxXP = MaxExperience;
     SaveGameInstance->CurrentXP = Experience;
@@ -450,7 +452,8 @@ bool APaperPlatformerCharacter::LoadGame()
     {
         MaxHealth = LoadGameInstance->MaxHealth;
         MaxStamina = LoadGameInstance->MaxStam;
-        BaseAttackPower = LoadGameInstance->Attack;
+        BaseAttackPower = LoadGameInstance->BaseAttackPower;
+        AttackPower = LoadGameInstance->BaseAttackPower;
         MaxJumps = LoadGameInstance->MaxJumps;
         MaxExperience = LoadGameInstance->MaxXP;
         Experience = LoadGameInstance->CurrentXP;

@@ -9,7 +9,8 @@ APaperEnemy::APaperEnemy(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
     /* constructor */
-    Health = MaxHealth = 10;
+    gi
+    Health = MaxHealth = 15;
 	ExperienceValue = 50;
 }
 

@@ -21,13 +21,13 @@ class PLATFORMER_API UCSaveGame : public USaveGame
     uint32 UserIndex;
     
     UPROPERTY(VisibleAnywhere, Category = Basic)
-    float MaxHealth;
+    uint32 MaxHealth;
     
     UPROPERTY(VisibleAnywhere, Category = Basic)
     float MaxStam;
     
     UPROPERTY(VisibleAnywhere, Category = Basic)
-    float Attack;
+    float BaseAttackPower;
     
     UPROPERTY(VisibleAnywhere, Category = Basic)
     uint32 MaxXP;
