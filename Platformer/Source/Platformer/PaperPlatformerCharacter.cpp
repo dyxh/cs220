@@ -21,13 +21,13 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
     if (!LoadGame())
     {
         // set base health
-        Health = MaxHealth =  10;
+        Health = MaxHealth = 10;
     
         // set base stamina and stamina regen
         Stamina = MaxStamina = 1000.0f;
 
         // set base attack power
-        AttackPower = BaseAttackPower = 100000.0f;
+        AttackPower = BaseAttackPower = 10.0f;
 
         // set experience
         Experience = 0;
@@ -56,7 +56,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
 	StaminaAttackCost = 100.0f;
-    StaminaRegen = 100.0f;
+    StaminaRegen = 200.0f;
 
     // Sets the experience increase needed to level up after every level up
     MaxExperienceIncrease = 50;
@@ -203,6 +203,10 @@ void APaperPlatformerCharacter::UpdateAnimation()
     if (AttackDuration > 0)
     {
         NextAnimation = IdleAttackAnimation;
+    }
+    else if (BattleState == EBattleState::Shield)
+    {
+        NextAnimation = IdleShieldAnimation;
     }
 	else if (IsJumping)
 	{
