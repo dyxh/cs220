@@ -76,6 +76,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> JumpAnimationAsset;
         ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleShieldAnimationAsset;
         ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleAttackAnimationAsset;
+		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> RunningShieldAnimationAsset;
         ConstructorHelpers::FObjectFinder<USoundWave> SwordSwooshAsset;
         
 		FConstructorStatics()
@@ -84,6 +85,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 			, JumpAnimationAsset(TEXT("/Game/Flipbooks/PlayerJump.PlayerJump"))
             , IdleShieldAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdleShield.PlayerIdleShield"))
             , IdleAttackAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdleAttack.PlayerIdleAttack"))
+			, RunningShieldAnimationAsset(TEXT("/Game/Flipbooks/PlayerRunningShield.PlayerRunningShield"))
             , SwordSwooshAsset(TEXT("/Game/Audio/sword-swoosh.sword-swoosh"))
 		{
 		}
@@ -95,6 +97,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	JumpAnimation = ConstructorStatics.JumpAnimationAsset.Get();
     IdleAttackAnimation = ConstructorStatics.IdleAttackAnimationAsset.Get();
     IdleShieldAnimation = ConstructorStatics.IdleShieldAnimationAsset.Get();
+	RunningShieldAnimation = ConstructorStatics.RunningShieldAnimationAsset.Get();
 	Sprite->SetFlipbook(IdleAnimation);
     
     //set audio
@@ -218,21 +221,38 @@ void APaperPlatformerCharacter::UpdateAnimation()
     {
         NextAnimation = IdleAttackAnimation;
     }
-    else if (BattleState == EBattleState::Shield)
-    {
-        NextAnimation = IdleShieldAnimation;
-    }
 	else if (IsJumping)
 	{
-		NextAnimation = JumpAnimation;
+		if (BattleState == EBattleState::Shield)
+		{
+			NextAnimation = IdleShieldAnimation;
+		}
+		else
+		{
+			NextAnimation = JumpAnimation;
+		}
 	}
 	else if (IsRunning)
 	{
-		NextAnimation = RunningAnimation;
+		if (BattleState == EBattleState::Shield)
+		{
+			NextAnimation = RunningShieldAnimation;
+		}
+		else
+		{
+			NextAnimation = RunningAnimation;
+		}
 	}
 	else
 	{
-		NextAnimation = IdleAnimation;
+		if (BattleState == EBattleState::Shield)
+		{
+			NextAnimation = IdleShieldAnimation;
+		}
+		else
+		{
+			NextAnimation = IdleAnimation;
+		}
 	}
 
 	Sprite->SetFlipbook(NextAnimation);
