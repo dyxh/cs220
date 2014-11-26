@@ -47,10 +47,14 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> RunningAnimationAsset;
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleAnimationAsset;
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> JumpAnimationAsset;
+        ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleShieldAnimationAsset;
+        ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleAttackAnimationAsset;
 		FConstructorStatics()
-			: RunningAnimationAsset(TEXT("/Game/Flipbooks/PlayerRunning.PlayerRunning")) ///Game/KenneySpritePack/Players/Green/alienGreen_walk.alienGreen_walk
-			, IdleAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdle.PlayerIdle")) //KenneySpritePack/Players/Green/alienGreen_idle.alienGreen_idle
+			: RunningAnimationAsset(TEXT("/Game/Flipbooks/PlayerRunning.PlayerRunning"))
+			, IdleAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdle.PlayerIdle"))
 			, JumpAnimationAsset(TEXT("/Game/Flipbooks/PlayerJump.PlayerJump"))
+            , IdleShieldAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdleShield.PlayerIdleShield"))
+            , IdleAttackAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdleAttack.PlayerIdleAttack"))
 		{
 		}
 	};

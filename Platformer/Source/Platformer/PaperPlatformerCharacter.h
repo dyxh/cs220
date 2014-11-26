@@ -174,6 +174,7 @@ protected:
 	UFUNCTION()
 	void OnStopShield();
 
+    // NON-ACTION ANIMATIONS
 	// Running animation
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbook* RunningAnimation;
@@ -186,6 +187,15 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbook* JumpAnimation;
 
+    // ACTION ANIMATIONS
+    // Idle shield animation
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+    class UPaperFlipbook* IdleShieldAnimation;
+    
+    // Idle Attack animation
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+    class UPaperFlipbook* IdleAttackAnimation;
+    
 	// update animation depending on state
 	void UpdateAnimation();
     
