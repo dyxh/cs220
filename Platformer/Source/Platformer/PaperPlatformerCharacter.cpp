@@ -375,7 +375,7 @@ void APaperPlatformerCharacter::OnItemPickup(float boost, EnumType::bType type)
     // IF ATTACKPICKUP
     case(EnumType::Attack):
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Attack boost!"));
-        AttackBuffDuration += 20;
+        AttackBuffDuration += boost;
     break;
             
     default:
