@@ -15,32 +15,35 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	// enable tick
 	PrimaryActorTick.bCanEverTick = true;
 
-	// set baseline health/stamina
-	Health = MaxHealth = 1000.0f;
-	Stamina = MaxStamina = 1000.0f;
-
+	if (!LoadGame())
+    {
+    
+        // set baseline health/stamina
+        Health = MaxHealth = 1000.0f;
+        Stamina = MaxStamina = 1000.0f;
+    
+        AttackPower = 500.0f;
+        MaxExperience = 100;
+        Experience = 0;
+        Level = 1;
+        MaxJumps = 3;
+    }
 	HealthRegen = 0.0f;
 	StaminaRegen = 0.010f;
-
-	AttackPower = 500.0f;
 	AttackPowerIncrease = 100.0f;
 
-	Experience = 0;
-	MaxExperience = 100;
 	MaxExperienceIncrease = 50;
-	Level = 1;
 
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
 	StaminaAttackCost = 100.0f;
 
-	MaxJumps = 3;
 	CurrentJumps = 0;
-
+    
 	// set initial battle and movement states
 	MoveState = EMoveState::Idle;
 	BattleState = EBattleState::Idle;
-
+    
 	// get and setup the animations
 	struct FConstructorStatics
 	{
@@ -260,6 +263,8 @@ void APaperPlatformerCharacter::OnStartAttack()
 					Experience = 0;
 					MaxExperience += MaxExperienceIncrease;
 					AttackPower += AttackPowerIncrease;
+                    SaveGame();
+                    
 				}
 			}
 		}
@@ -323,7 +328,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 		Stamina += MaxStamina * StaminaRegen;
 		Stamina = (Stamina > MaxStamina) ? MaxStamina : Stamina;
 	}
-
+    
 	if (BattleState == EBattleState::Shield)
 	{
 		if (Stamina >= StaminaShieldCost)
@@ -380,16 +385,24 @@ void APaperPlatformerCharacter::SaveGame()
     UGameplayStatics::SaveGameToSlot(SaveGameInstance, SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex);
 }
 
-void APaperPlatformerCharacter::LoadGame()
+// Return true if loadgame succeeds
+bool APaperPlatformerCharacter::LoadGame()
 {
     UCSaveGame* LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
     LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::LoadGameFromSlot(LoadGameInstance->SaveSlotName, LoadGameInstance->UserIndex));
-    MaxHealth = LoadGameInstance->MaxHealth;
-    MaxStamina = LoadGameInstance->MaxStam;
-    AttackPower = LoadGameInstance->Attack;
-    MaxJumps = LoadGameInstance->MaxJumps;
-    MaxExperience = LoadGameInstance->MaxXP;
-    Experience = LoadGameInstance->CurrentXP;
-    Level = LoadGameInstance->CurrentLevel;
+    if (LoadGameInstance)
+    {
+        MaxHealth = LoadGameInstance->MaxHealth;
+        MaxStamina = LoadGameInstance->MaxStam;
+        AttackPower = LoadGameInstance->Attack;
+        MaxJumps = LoadGameInstance->MaxJumps;
+        MaxExperience = LoadGameInstance->MaxXP;
+        Experience = LoadGameInstance->CurrentXP;
+        Level = LoadGameInstance->CurrentLevel;
+        return true;
+    }
+    // Load Failed
+    return false;
+    
     
 }
