@@ -84,7 +84,10 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
     // DURRATION of an attack power buff from an AttackPickup
     UPROPERTY(VisibleAnywhere, BluePrintReadWrite, Category = Attack)
     float AttackBuffDuration;
-
+    
+    UPROPERTY(VisibleAnywhere, BluePrintReadWrite, Category = Attack)
+    float AttackDuration;
+    
 	// STAMINA COST of run (per tick)
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
 	float StaminaRunCost;

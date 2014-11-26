@@ -38,8 +38,8 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
         MaxJumps = 3;
     }
     
-    else {
-        
+    else
+    {
         //Initialize health, stamina, and attack power to their initial
         // values based upon the loaded file
         Health = MaxHealth;
@@ -51,12 +51,13 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
     // duration of attack power increase buffs
     AttackPowerIncrease = 3;
     AttackBuffDuration = 0.0f;
+    AttackDuration = 0.0f;
     
     // set stamina costs and regeneration rate
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
 	StaminaAttackCost = 100.0f;
-    StaminaRegen = 25.0f;
+    StaminaRegen = 100.0f;
 
     // Sets the experience increase needed to level up after every level up
     MaxExperienceIncrease = 50;
@@ -105,9 +106,9 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 
 	// Setup damage box
 	Hitbox = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("Hitbox"));
-	Hitbox->SetBoxExtent(FVector(50.0f, 0.0f, 60.0f)); // extends 40 units from the character
+	Hitbox->SetBoxExtent(FVector(60.0f, 0.0f, 20.0f)); // extends 40 units from the character
     Hitbox->AttachTo(RootComponent);
-	Hitbox->RelativeLocation = FVector(50.0f, 0.0f, 0.0f);
+	Hitbox->RelativeLocation = FVector(55.0f, 0.0f, 0.0f);
 
 	// attach camera boom to capsule
 	CameraBoom = PCIP.CreateDefaultSubobject<USpringArmComponent>(this, TEXT("CameraBoom"));
@@ -130,11 +131,11 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 
 	// Configure character movement
 	CharacterMovement->GravityScale = 2.0f;
-	CharacterMovement->AirControl = 10.0f;
+	CharacterMovement->AirControl = 1.0f;
 	CharacterMovement->JumpZVelocity = 800.0f;
 	CharacterMovement->GroundFriction = 3.0f;
 	CharacterMovement->MaxWalkSpeed = 800.0f;
-	CharacterMovement->MaxFlySpeed = 300.0f;
+	CharacterMovement->MaxFlySpeed = 10.0f;
 
 	// Lock character motion onto the XZ plane, so the character can't move in or out of the screen
 	CharacterMovement->bConstrainToPlane = true;
@@ -197,7 +198,11 @@ void APaperPlatformerCharacter::UpdateAnimation()
 
 	UPaperFlipbook* NextAnimation;
 
-	if (IsJumping)
+    if (AttackDuration > 0)
+    {
+        NextAnimation = IdleAttackAnimation;
+    }
+	else if (IsJumping)
 	{
 		NextAnimation = JumpAnimation;
 	}
@@ -256,12 +261,12 @@ void APaperPlatformerCharacter::OnStopRun()
 
 void APaperPlatformerCharacter::OnStartAttack()
 {
-    
 	// going to use the following function to get all actors inside the hitbox
 	// https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UKismetSystemLibrary/BoxOverlapActors_NEW/index.html
-	if (Stamina > 200.0f)
+	if (Stamina >= StaminaAttackCost)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ATTACK!"));
+        AttackDuration = 0.35f;
+		
 		BattleState = EBattleState::Attack;
 		Stamina -= StaminaAttackCost;
 
@@ -279,8 +284,13 @@ void APaperPlatformerCharacter::OnStartAttack()
 		{
 			// We know that all returned actors are going to be PaperEnemies
 			// Here is where we will do any battle calculations, e.g. add sword atkpwr etc
-			Cast<APaperEnemy>(overlapped)->ReceiveDamage(AttackPower);
-			// If enemy is killed
+            APaperEnemy* Enemy = Cast<APaperEnemy>(overlapped);
+            if (Enemy)
+            {
+                GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Hit."));
+                Enemy->ReceiveDamage(AttackPower);
+            }
+            
 			if (Cast<APaperEnemy>(overlapped)->Health <= 0.0f)
 			{
 				Experience += Cast<APaperEnemy>(overlapped)->ExperienceValue;
@@ -321,19 +331,28 @@ void APaperPlatformerCharacter::OnEnemyCollide(float val)
 {
     /* handles being damaged */
     
-	if (Health >= val)
+	if (Health > val)
 	{
 		Health -= val;
 	}
-	else
-	{
+	else if (Health <= val && Health > 0)
+    {
 		Health = 0;
-		GEngine->AddOnScreenDebugMessage(2, 5.0f, FColor::Red, TEXT("U LOSE SUCKA!!"));
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ENTER DEATH STATE."));
 	}
 }
 
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
+    if (AttackDuration >= DeltaSeconds)
+    {
+        AttackDuration -= DeltaSeconds;
+    }
+    else
+    {
+        AttackDuration = 0.0f;
+    }
+
     if (AttackBuffDuration >= DeltaSeconds)
     {
         AttackPower = BaseAttackPower * 2.5;
