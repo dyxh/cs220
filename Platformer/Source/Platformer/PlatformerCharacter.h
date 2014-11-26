@@ -19,7 +19,7 @@ class PLATFORMER_API APlatformerCharacter : public ACharacter
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-	// Handles left/right movement
+	// handles left/right movement
 	UFUNCTION()
-	void MoveRight(float val);
+	void MoveRight(float MovementValue);
 };

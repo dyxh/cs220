@@ -8,17 +8,15 @@
 APaperEnemy::APaperEnemy(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
-    // set initial health
-    Health = MaxHealth = 1000.0f;
-
-	ExperienceEnemy = 50;
-
+    /* constructor */
+    Health = MaxHealth = 10;
+	ExperienceValue = 50;
 }
 
 void APaperEnemy::ReceiveDamage(float val)
 {
-    // can be made more complicated than this
-    // for example, we could reduce the damage by some some defense rating
+    /* handles being damaged by the Hero */
+    
     Health -= val;
     
     if (Health <= 0)
@@ -33,7 +31,8 @@ void APaperEnemy::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other,
                              FVector HitNormal, FVector NormalImpulse,
                              const FHitResult &Hit)
 {
-    /* HANDLES A HERO BUMPING INTO IT */
+    /* handles damaging the Hero */
+    
     Super::ReceiveHit(MyComp, Other, OtherComp, bSelfMoved,
                       HitLocation, HitNormal, NormalImpulse, Hit);
     
@@ -44,8 +43,7 @@ void APaperEnemy::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other,
         if (Hero->BattleState != EBattleState::Shield)
         {
             Hero->OnEnemyCollide(1);
-            Hero->CharacterMovement->Velocity += HitNormal *
-                                                 FVector(450.0f, 0.0f, 100.0f);
         }
+        Hero->CharacterMovement->Velocity += HitNormal * FVector(450.0f, 0.0f, 100.0f);
     }
 }

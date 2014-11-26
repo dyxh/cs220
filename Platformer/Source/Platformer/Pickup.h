@@ -7,13 +7,10 @@
 #include "GameFramework/Actor.h"
 #include "Pickup.generated.h"
 
-/**
- * 
- */
 UENUM(BlueprintType)
-namespace EnumType
+namespace EBoostType
 {
-    enum bType
+    enum Type
     {
         HP          UMETA(DisplayName = "HP boost"),
         Stamina		UMETA(DisplayName = "Stamina boost"),
@@ -21,28 +18,26 @@ namespace EnumType
     };
 }
 
-
 UCLASS()
 class PLATFORMER_API APickup : public AActor
 {
 	GENERATED_UCLASS_BODY()
     
-    //amount of hp/stamina/attack boosted
+    // the value and type of the boost
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pickup)
-	UInt32 boost;
-    
+	UInt32 BoostValue;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enum)
-	TEnumAsByte<EnumType::bType> BoostType;
+    TEnumAsByte<EBoostType::Type> BoostType;
     
-    //damage collision box
+    // the possible collision area of the pickup
     UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Collision)
     TSubobjectPtr<UBoxComponent> BaseCollisionComponent;
     
-	// The sprite of the pickup
+	// the pickup sprite
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly)
 	TSubobjectPtr<class UStaticMeshComponent> Sprite;
     
-    // Handles being picked up by a character
+    // handles being picked up by the Hero
     virtual void ReceiveHit(
         class UPrimitiveComponent *MyComp,
         AActor *Other,
