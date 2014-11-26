@@ -198,7 +198,7 @@ protected:
     void SaveGame();
     
     UFUNCTION()
-    void LoadGame();
+    bool LoadGame();
     
 public:
 	// Handles taking damage

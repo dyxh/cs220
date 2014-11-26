@@ -17,37 +17,57 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	// enable tick
 	PrimaryActorTick.bCanEverTick = true;
 
-	// set base health
-    Health = MaxHealth = 10;
+    // If saved file exists, load it
+    if (!LoadGame())
+    {
+        // set base health
+        Health = MaxHealth = 10;
     
-    // set base stamina and stamina regen
-	Stamina = MaxStamina = 1000.0f;
-	StaminaRegen = 25.0f;
+        // set base stamina and stamina regen
+        Stamina = MaxStamina = 1000.0f;
 
-    // set base attack, attack per level, and buff duration
-    AttackPower = BaseAttackPower = 5;
-	AttackPowerIncrease = 3;
+        // set base attack power
+        AttackPower = BaseAttackPower = 5;
+
+        // set experience
+        Experience = 0;
+        MaxExperience = 100;
+        Level = 1;
+        
+        //set number of possible jumps
+        MaxJumps = 3;
+    }
+    
+    else {
+        
+        //Initialize health, stamina, and attack power to their initial
+        // values based upon the loaded file
+        Health = MaxHealth;
+        Stamina = MaxStamina;
+        AttackPower = BaseAttackPower;
+    }
+    
+    // Set attack power increase per level
+    // duration of attack power increase buffs
+    AttackPowerIncrease = 3;
     AttackBuffDuration = 0.0f;
-
-    // set experience
-	Experience = 0;
-	MaxExperience = 100;
-	MaxExperienceIncrease = 50;
-	Level = 1;
-
-    // set stamina costs
+    
+    // set stamina costs and regeneration rate
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
 	StaminaAttackCost = 100.0f;
+    StaminaRegen = 25.0f;
 
-    // set jump costs
-	MaxJumps = 3;
+    // Sets the experience increase needed to level up after every level up
+    MaxExperienceIncrease = 50;
+    
+    //initialize jump counter to 0
 	CurrentJumps = 0;
-
+    
 	// set initial battle and movement states
 	MoveState = EMoveState::Idle;
 	BattleState = EBattleState::Idle;
-
+    
 	// get and setup the animations
 	struct FConstructorStatics
 	{
@@ -270,6 +290,8 @@ void APaperPlatformerCharacter::OnStartAttack()
 					Experience = 0;
 					MaxExperience += MaxExperienceIncrease;
 					AttackPower += AttackPowerIncrease;
+                    SaveGame();
+                    
 				}
 			}
 		}
@@ -345,7 +367,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 		Stamina += StaminaRegen * DeltaSeconds;
 		Stamina = (Stamina > MaxStamina) ? MaxStamina : Stamina;
 	}
-
+    
 	if (BattleState == EBattleState::Shield)
 	{
 		if (Stamina >= StaminaShieldCost)
@@ -383,12 +405,14 @@ void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type 
 	}
 }
 
+
+// Set the properties we want to save and save those to disk, using the SaveGameInstance
 void APaperPlatformerCharacter::SaveGame()
 {
     UCSaveGame* SaveGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
     SaveGameInstance->MaxHealth = MaxHealth;
     SaveGameInstance->MaxStam = MaxStamina;
-    SaveGameInstance->Attack = AttackPower;
+    SaveGameInstance->Attack = BaseAttackPower;
     SaveGameInstance->MaxJumps = MaxJumps;
     SaveGameInstance->MaxXP = MaxExperience;
     SaveGameInstance->CurrentXP = Experience;
@@ -396,16 +420,26 @@ void APaperPlatformerCharacter::SaveGame()
     UGameplayStatics::SaveGameToSlot(SaveGameInstance, SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex);
 }
 
-void APaperPlatformerCharacter::LoadGame()
+// Return true if loadgame succeeds
+bool APaperPlatformerCharacter::LoadGame()
 {
+    //Load Game Instance from disk
     UCSaveGame* LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
     LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::LoadGameFromSlot(LoadGameInstance->SaveSlotName, LoadGameInstance->UserIndex));
-    MaxHealth = LoadGameInstance->MaxHealth;
-    MaxStamina = LoadGameInstance->MaxStam;
-    AttackPower = LoadGameInstance->Attack;
-    MaxJumps = LoadGameInstance->MaxJumps;
-    MaxExperience = LoadGameInstance->MaxXP;
-    Experience = LoadGameInstance->CurrentXP;
-    Level = LoadGameInstance->CurrentLevel;
+    //Restore values if the load succeeds
+    if (LoadGameInstance)
+    {
+        MaxHealth = LoadGameInstance->MaxHealth;
+        MaxStamina = LoadGameInstance->MaxStam;
+        BaseAttackPower = LoadGameInstance->Attack;
+        MaxJumps = LoadGameInstance->MaxJumps;
+        MaxExperience = LoadGameInstance->MaxXP;
+        Experience = LoadGameInstance->CurrentXP;
+        Level = LoadGameInstance->CurrentLevel;
+        return true;
+    }
+    // Load Failed. Most likely no save file exists
+    return false;
+    
     
 }
