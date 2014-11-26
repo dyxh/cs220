@@ -190,6 +190,9 @@ protected:
     // Idle shield animation
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
     class UPaperFlipbook* IdleShieldAnimation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	class UPaperFlipbook* RunningShieldAnimation;
     
     // Idle Attack animation
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
