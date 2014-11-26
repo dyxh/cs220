@@ -21,13 +21,13 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
     if (LoadGame())
     {
         // set base health
-        Health = MaxHealth = 10;
+        Health = MaxHealth =  10;
     
         // set base stamina and stamina regen
         Stamina = MaxStamina = 1000.0f;
 
         // set base attack power
-        AttackPower = BaseAttackPower = 10.0f;
+        AttackPower = BaseAttackPower = 100000.0f;
 
         // set experience
         Experience = 0;
@@ -347,7 +347,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
                     Experience = 0;
                     MaxExperience += MaxExperienceIncrease;
                     BaseAttackPower += AttackPowerIncrease;
-//                    SaveGame();
+                    SaveGame();
                     
                 }
             }
