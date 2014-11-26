@@ -29,7 +29,7 @@ class PLATFORMER_API APickup : public AActor
     
     //amount of hp/stamina/attack boosted
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pickup)
-	float boost;
+	UInt32 boost;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enum)
 	TEnumAsByte<EnumType::bType> BoostType;

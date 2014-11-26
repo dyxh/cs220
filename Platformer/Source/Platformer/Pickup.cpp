@@ -6,8 +6,8 @@
 
 APickup::APickup(const class FPostConstructInitializeProperties& PCIP) : Super(PCIP)
 {
-    // random boost value
-    boost = (rand() % 1000) / 10; //between 0 and 100, in 10s
+    // random boost value 1, 2, or 3
+    boost = (rand() % 3) + 1;
     
     // BoostType can be HP, Stamina or Attack
     BoostType = EnumType::HP;
@@ -41,8 +41,6 @@ void APickup::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other,
         Hero->OnItemPickup(boost, BoostType);
         Destroy();
     }
-    
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Picked up an item, yo."));
 }
 
 

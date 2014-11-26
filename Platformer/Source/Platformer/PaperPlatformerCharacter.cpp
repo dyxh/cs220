@@ -15,25 +15,30 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	// enable tick
 	PrimaryActorTick.bCanEverTick = true;
 
-	// set baseline health/stamina
+	// set base health
     Health = MaxHealth = 10;
     
+    // set base stamina and stamina regen
 	Stamina = MaxStamina = 1000.0f;
 	StaminaRegen = 0.007f;
 
+    // set base attack, attack per level, and buff duration
 	AttackPower = 500.0f;
-    AttackBuffDuration = 0.0f;
 	AttackPowerIncrease = 100.0f;
+    AttackBuffDuration = 0.0f;
 
+    // set experience
 	Experience = 0;
 	MaxExperience = 100;
 	MaxExperienceIncrease = 50;
 	Level = 1;
 
+    // set stamina costs
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
 	StaminaAttackCost = 100.0f;
 
+    // set jump costs
 	MaxJumps = 3;
 	CurrentJumps = 0;
 
@@ -103,11 +108,11 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 
 	// Configure character movement
 	CharacterMovement->GravityScale = 2.0f;
-	CharacterMovement->AirControl = 0.80f;
-	CharacterMovement->JumpZVelocity = 1000.f;
+	CharacterMovement->AirControl = 1.0f;
+	CharacterMovement->JumpZVelocity = 800.0f;
 	CharacterMovement->GroundFriction = 3.0f;
 	CharacterMovement->MaxWalkSpeed = 800.0f;
-	CharacterMovement->MaxFlySpeed = 600.0f;
+	CharacterMovement->MaxFlySpeed = 300.0f;
 
 	// Lock character motion onto the XZ plane, so the character can't move in or out of the screen
 	CharacterMovement->bConstrainToPlane = true;
@@ -306,7 +311,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
     if (AttackBuffDuration >= DeltaSeconds)
     {
-        AttackPower = 10000.0f;
+        AttackPower = 1000.0f;
         AttackBuffDuration -= DeltaSeconds;
     }
     else
@@ -358,26 +363,23 @@ void APaperPlatformerCharacter::OnItemPickup(float boost, EnumType::bType type)
             
     // IF HPPICKUP
     case (EnumType::HP) :
-		Health += boost;
+		Health += (UInt32) boost;
 		if (Health >= MaxHealth){
 			Health = MaxHealth;
 		}
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("HP boost!"));
     break;
             
     // IF STAMINAPICKUP
     case(EnumType::Stamina) :
-		Stamina += boost;
+		Stamina += boost * 100;
 		if (Stamina >= MaxStamina){
 			Stamina = MaxStamina;
 		}
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Stamina boost!"));
     break;
             
     // IF ATTACKPICKUP
     case(EnumType::Attack):
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Attack boost!"));
-        AttackBuffDuration += boost;
+        AttackBuffDuration += boost * 5;
     break;
             
     default:
