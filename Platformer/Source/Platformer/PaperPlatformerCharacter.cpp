@@ -312,13 +312,6 @@ void APaperPlatformerCharacter::OnEnemyCollide(float val)
 
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
-    // if dead, stop character
-    if (MoveState == EMoveState::Death)
-    {
-        TurnOff();
-        
-    }
-    
     if (AttackDuration >= DeltaSeconds)
     {
         AttackDuration -= DeltaSeconds;
@@ -378,6 +371,12 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
         AttackPower = BaseAttackPower;
     }
     
+    
+    // if dead, stop character
+    if (MoveState == EMoveState::Death)
+    {
+        TurnOff();
+    }
 	// if sprinting and moving
 	else if ((MoveState == EMoveState::Run) && (GetVelocity().Size() > 0.0f))
 	{
