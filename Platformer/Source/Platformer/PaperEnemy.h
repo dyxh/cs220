@@ -22,7 +22,7 @@ class PLATFORMER_API APaperEnemy : public APaperCharacter
     float MaxHealth;
 	
 	// Experience that enemy will give player
-	uint32 ExperienceEnemy;
+	UInt32 ExperienceEnemy;
 
     // Calculates health loss from given damage
     UFUNCTION()

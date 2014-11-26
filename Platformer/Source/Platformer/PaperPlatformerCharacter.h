@@ -65,11 +65,11 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
 
 	// Current health of character
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Health)
-	float Health;
+	UInt32 Health;
 
 	// Max possible health of character
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Health)
-	float MaxHealth;
+	UInt32 MaxHealth;
 
 	// Current Stamina of Chracter
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
@@ -82,14 +82,14 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
 	// Stamina regeneration rate
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
 	float StaminaRegen;
-
-	// Health Regeneration rate
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
-	float HealthRegen;
     
-    // Health Regeneration rate
+    // Attack power
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Attack)
     float AttackPower;
+    
+    // Duration of an attack power pickup
+    UPROPERTY(VisibleAnywhere, BluePrintReadWrite, Category = Attack)
+    float AttackBuffDuration;
 
 	// Stamina cost of run (per tick)
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
@@ -107,22 +107,22 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
 	virtual void Tick(float DeltaSeconds) override;
     
     // Maximum jumps possible
-    int MaxJumps;
+    UInt32 MaxJumps;
     
     // Jumps used
-    int CurrentJumps;
+    UInt32 CurrentJumps;
 
 	// Current experience of player
-	int Experience;
+	UInt32 Experience;
 
 	// Maximum experience for current level
-	int MaxExperience;
+	UInt32 MaxExperience;
 
 	// Maximum experience increase per Level Increase
-	int MaxExperienceIncrease;
+	UInt32 MaxExperienceIncrease;
 
 	// Current level of player
-	int Level;
+	UInt32 Level;
 
 	// Attack Power Increase per Level Increase
 	float AttackPowerIncrease;

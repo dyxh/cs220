@@ -41,12 +41,8 @@ class PLATFORMER_API APickup : public AActor
 	// The sprite of the pickup
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly)
 	TSubobjectPtr<class UStaticMeshComponent> Sprite;
-
-//    //called when something overlaps the sphere component
-//    UFUNCTION()
-//    void OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
     
-    // Handles damaging the player
+    // Handles being picked up by a character
     virtual void ReceiveHit(
         class UPrimitiveComponent *MyComp,
         AActor *Other,

@@ -27,20 +27,25 @@ void APaperEnemy::ReceiveDamage(float val)
     }
 }
 
-void APaperEnemy::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other, class UPrimitiveComponent *OtherComp,
-                bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult &Hit)
+void APaperEnemy::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other,
+                             class UPrimitiveComponent *OtherComp,
+                             bool bSelfMoved, FVector HitLocation,
+                             FVector HitNormal, FVector NormalImpulse,
+                             const FHitResult &Hit)
 {
-    Super::ReceiveHit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
+    /* HANDLES A HERO BUMPING INTO IT */
+    Super::ReceiveHit(MyComp, Other, OtherComp, bSelfMoved,
+                      HitLocation, HitNormal, NormalImpulse, Hit);
+    
     APaperPlatformerCharacter *Hero = Cast<APaperPlatformerCharacter>(Other);
     
     if (Hero)
     {
         if (Hero->BattleState != EBattleState::Shield)
         {
-            Hero->OnEnemyCollide(20.0f);
-            Hero->CharacterMovement->Velocity += HitNormal * FVector(450.0f, 0.0f, 125.0f);
+            Hero->OnEnemyCollide(1);
+            Hero->CharacterMovement->Velocity += HitNormal *
+                                                 FVector(450.0f, 0.0f, 100.0f);
         }
     }
-    
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Enemy collision detected."));
 }

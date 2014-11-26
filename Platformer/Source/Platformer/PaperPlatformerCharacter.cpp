@@ -16,13 +16,13 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	PrimaryActorTick.bCanEverTick = true;
 
 	// set baseline health/stamina
-	Health = MaxHealth = 1000.0f;
+    Health = MaxHealth = 10;
+    
 	Stamina = MaxStamina = 1000.0f;
-
-	HealthRegen = 0.0f;
-	StaminaRegen = 0.010f;
+	StaminaRegen = 0.007f;
 
 	AttackPower = 500.0f;
+    AttackBuffDuration = 0.0f;
 	AttackPowerIncrease = 100.0f;
 
 	Experience = 0;
@@ -285,9 +285,10 @@ void APaperPlatformerCharacter::OnStopShield()
 	BattleState = EBattleState::Idle;
 }
 
-// Handles taking damage
+
 void APaperPlatformerCharacter::OnEnemyCollide(float val)
 {
+    /* HANDLES TAKING DAMAGE */
 	if (Health >= val)
 	{
 		Health -= val;
@@ -301,6 +302,17 @@ void APaperPlatformerCharacter::OnEnemyCollide(float val)
 
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
+    if (AttackBuffDuration >= DeltaSeconds)
+    {
+        AttackPower = 10000.0f;
+        AttackBuffDuration -= DeltaSeconds;
+    }
+    else
+    {
+        AttackBuffDuration = 0.0f;
+        AttackPower = 500.0f;
+    }
+    
 	// if trying to run and actually moving
 	if ((MoveState == EMoveState::Run) && (GetVelocity().Size() > 0.0f))
 	{
@@ -339,36 +351,41 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 
 void APaperPlatformerCharacter::OnItemPickup(float boost, EnumType::bType type)
 {
+    /* HANDLES ITEM INTERACTION */
 	switch (type) {
-	case (EnumType::HP) :
+            
+    // IF HPPICKUP
+    case (EnumType::HP) :
 		Health += boost;
 		if (Health >= MaxHealth){
 			Health = MaxHealth;
 		}
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("HP boost!"));
-		break;
-	case(EnumType::Stamina) :
+    break;
+            
+    // IF STAMINAPICKUP
+    case(EnumType::Stamina) :
 		Stamina += boost;
 		if (Stamina >= MaxStamina){
 			Stamina = MaxStamina;
 		}
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Stamina boost!"));
-		break;
-		//    case(EnumType::Attack):
-		//        AttackPower += boost;
-		//            if (AttackPower >= MaxAttackPower){
-		//                AttackPower = MaxAttackPower;
-		//            }
-		//        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Attack boost!"));
-		break;
-	default:
-		break;
+    break;
+            
+    // IF ATTACKPICKUP
+    case(EnumType::Attack):
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Attack boost!"));
+        AttackBuffDuration += 20;
+    break;
+            
+    default:
+    break;
 	}
 }
 
 void APaperPlatformerCharacter::SaveGame()
 {
-    
+    /* HANDLES SAVING THE GAME */
     UCSaveGame* SaveGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
     SaveGameInstance->MaxHealth = MaxHealth;
     SaveGameInstance->MaxStam = MaxStamina;
@@ -382,6 +399,7 @@ void APaperPlatformerCharacter::SaveGame()
 
 void APaperPlatformerCharacter::LoadGame()
 {
+    /* HANDLES LOADING THE GAME */
     UCSaveGame* LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
     LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::LoadGameFromSlot(LoadGameInstance->SaveSlotName, LoadGameInstance->UserIndex));
     MaxHealth = LoadGameInstance->MaxHealth;
