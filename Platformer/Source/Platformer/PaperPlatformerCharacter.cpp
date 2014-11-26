@@ -103,7 +103,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	SideViewCameraComponent->OrthoWidth = 1024.0f;
 	SideViewCameraComponent->AttachTo(CameraBoom, USpringArmComponent::SocketName); // attach to boom
 
-	// restric camera rotation
+	// restrict camera rotation
 	CameraBoom->bAbsoluteRotation = true;
 	SideViewCameraComponent->bUsePawnControlRotation = false;
 	CharacterMovement->bOrientRotationToMovement = false;
@@ -111,7 +111,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	// Configure character movement
 	CharacterMovement->GravityScale = 2.0f;
 	CharacterMovement->AirControl = 10.0f;
-	CharacterMovement->JumpZVelocity = 750.0f;
+	CharacterMovement->JumpZVelocity = 800.0f;
 	CharacterMovement->GroundFriction = 3.0f;
 	CharacterMovement->MaxWalkSpeed = 800.0f;
 	CharacterMovement->MaxFlySpeed = 300.0f;
