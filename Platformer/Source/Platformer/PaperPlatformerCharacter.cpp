@@ -18,7 +18,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	PrimaryActorTick.bCanEverTick = true;
 
     // If saved file exists, load it
-    if (LoadGame())
+    if (!LoadGame())
     {
         // set base health
         Health = MaxHealth = 10;
@@ -35,7 +35,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
         Level = 1;
         
         //set number of possible jumps
-        MaxJumps = 3;
+        MaxJumps = 1;
     }
     else
     {
@@ -56,7 +56,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
 	StaminaAttackCost = 100.0f;
-    StaminaRegen = 100.0f;
+    StaminaRegen = 200.0f;
 
     // Sets the experience increase needed to level up after every level up
     MaxExperienceIncrease = 50;
@@ -218,6 +218,10 @@ void APaperPlatformerCharacter::UpdateAnimation()
     {
         NextAnimation = IdleAttackAnimation;
     }
+    else if (BattleState == EBattleState::Shield)
+    {
+        NextAnimation = IdleShieldAnimation;
+    }
 	else if (IsJumping)
 	{
 		NextAnimation = JumpAnimation;
@@ -329,11 +333,11 @@ void APaperPlatformerCharacter::OnEnemyCollide(float val)
 
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
+    EBattleState::State OriginalState = BattleState;
+    
     if (AttackDuration >= DeltaSeconds)
     {
         AttackDuration -= DeltaSeconds;
-        
-        BattleState = EBattleState::Attack;
         
         TArray<AActor*> EnemiesInRange;
         
@@ -364,7 +368,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
                     Experience = 0;
                     MaxExperience += MaxExperienceIncrease;
                     BaseAttackPower += AttackPowerIncrease;
-//                    SaveGame();
+                    SaveGame();
                     
                 }
             }
@@ -373,9 +377,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
     }
     else
     {
-        AttackDuration = 0.0f;
-        BattleState = EBattleState::Idle;
-    }
+        AttackDuration = 0.0f;    }
 
     if (AttackBuffDuration >= DeltaSeconds)
     {
@@ -449,11 +451,13 @@ void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type 
         case (EBoostType::Attack) :
             AttackBuffDuration += 20;
             break;
+        case (EBoostType::Jump) :
+            MaxJumps += 1;
+            break;
         default:
             break;
 	}
 }
-
 
 // Set the properties we want to save and save those to disk, using the SaveGameInstance
 void APaperPlatformerCharacter::SaveGame()
