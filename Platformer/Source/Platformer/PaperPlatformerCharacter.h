@@ -198,6 +198,12 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
     class UPaperFlipbook* IdleAttackAnimation;
     
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Audio)
+    TSubobjectPtr<UAudioComponent> SwordSwoosh;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
+    class USoundWave* SwordSwooshSound;
+    
 	// update animation depending on state
 	void UpdateAnimation();
     
