@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Platformer", "Intermediate\ProjectFiles\Platformer.vcxproj", "{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Platformer", "Intermediate\ProjectFiles\Platformer.vcxproj", "{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -14,16 +14,16 @@ Global
 		Shipping|Windows = Shipping|Windows
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.DebugGame Editor|Windows.ActiveCfg = DebugGame_Editor|x64
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.DebugGame Editor|Windows.Build.0 = DebugGame_Editor|x64
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.DebugGame|Windows.ActiveCfg = DebugGame_RocketGame|x64
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.DebugGame|Windows.Build.0 = DebugGame_RocketGame|x64
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.Development Editor|Windows.ActiveCfg = Development_Editor|x64
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.Development Editor|Windows.Build.0 = Development_Editor|x64
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.Development|Windows.ActiveCfg = Development_RocketGame|x64
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.Development|Windows.Build.0 = Development_RocketGame|x64
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.Shipping|Windows.ActiveCfg = Shipping_RocketGame|Win32
-		{57A083E0-F06F-4861-8DCE-195B8FDA2DFD}.Shipping|Windows.Build.0 = Shipping_RocketGame|Win32
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.DebugGame Editor|Windows.ActiveCfg = DebugGame_Editor|x64
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.DebugGame Editor|Windows.Build.0 = DebugGame_Editor|x64
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.DebugGame|Windows.ActiveCfg = DebugGame_RocketGame|x64
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.DebugGame|Windows.Build.0 = DebugGame_RocketGame|x64
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.Development Editor|Windows.ActiveCfg = Development_Editor|x64
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.Development Editor|Windows.Build.0 = Development_Editor|x64
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.Development|Windows.ActiveCfg = Development_RocketGame|x64
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.Development|Windows.Build.0 = Development_RocketGame|x64
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.Shipping|Windows.ActiveCfg = Shipping_RocketGame|Win32
+		{DA604D4F-6B19-44AF-B87A-5E30BCC073AA}.Shipping|Windows.Build.0 = Shipping_RocketGame|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
