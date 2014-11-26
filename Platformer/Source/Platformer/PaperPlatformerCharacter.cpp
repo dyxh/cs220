@@ -18,7 +18,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	PrimaryActorTick.bCanEverTick = true;
 
     // If saved file exists, load it
-    if (LoadGame())
+    if (!LoadGame())
     {
         // set base health
         Health = MaxHealth =  10;
@@ -312,11 +312,11 @@ void APaperPlatformerCharacter::OnEnemyCollide(float val)
 
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
+    EBattleState::State OriginalState = BattleState;
+    
     if (AttackDuration >= DeltaSeconds)
     {
         AttackDuration -= DeltaSeconds;
-        
-        BattleState = EBattleState::Attack;
         
         TArray<AActor*> EnemiesInRange;
         
@@ -356,9 +356,7 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
     }
     else
     {
-        AttackDuration = 0.0f;
-        BattleState = EBattleState::Idle;
-    }
+        AttackDuration = 0.0f;    }
 
     if (AttackBuffDuration >= DeltaSeconds)
     {
