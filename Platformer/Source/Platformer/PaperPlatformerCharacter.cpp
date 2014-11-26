@@ -12,32 +12,36 @@
 APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
+    /* constructor */
+    
 	// enable tick
 	PrimaryActorTick.bCanEverTick = true;
 
-	if (!LoadGame())
-    {
+	// set base health
+    Health = MaxHealth = 10;
     
-        // set baseline health/stamina
-        Health = MaxHealth = 1000.0f;
-        Stamina = MaxStamina = 1000.0f;
-    
-        AttackPower = 500.0f;
-        MaxExperience = 100;
-        Experience = 0;
-        Level = 1;
-        MaxJumps = 3;
-    }
-	HealthRegen = 0.0f;
-	StaminaRegen = 0.010f;
-	AttackPowerIncrease = 100.0f;
+    // set base stamina and stamina regen
+	Stamina = MaxStamina = 1000.0f;
+	StaminaRegen = 25.0f;
 
+    // set base attack, attack per level, and buff duration
+    AttackPower = BaseAttackPower = 5;
+	AttackPowerIncrease = 3;
+    AttackBuffDuration = 0.0f;
+
+    // set experience
+	Experience = 0;
+	MaxExperience = 100;
 	MaxExperienceIncrease = 50;
+	Level = 1;
 
+    // set stamina costs
 	StaminaRunCost = 10.0f;
 	StaminaShieldCost = 10.0f;
 	StaminaAttackCost = 100.0f;
 
+    // set jump costs
+	MaxJumps = 3;
 	CurrentJumps = 0;
     
 	// set initial battle and movement states
@@ -66,6 +70,8 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	RunningAnimation = ConstructorStatics.RunningAnimationAsset.Get();
 	IdleAnimation = ConstructorStatics.IdleAnimationAsset.Get();
 	JumpAnimation = ConstructorStatics.JumpAnimationAsset.Get();
+    IdleAttackAnimation = ConstructorStatics.IdleAttackAnimationAsset.Get();
+    IdleShieldAnimation = ConstructorStatics.IdleShieldAnimationAsset.Get();
 	Sprite->SetFlipbook(IdleAnimation);
 
 	// set capsule size
@@ -78,10 +84,10 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	bUseControllerRotationRoll = false;
 
 	// Setup damage box
-	DamageBox = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("DamageBox"));
-	DamageBox->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f)); // extends 40 units from the character
-	DamageBox->AttachTo(RootComponent);
-	DamageBox->RelativeLocation = FVector(40.0f, 0.0f, 0.0f);
+	Hitbox = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("Hitbox"));
+	Hitbox->SetBoxExtent(FVector(50.0f, 0.0f, 60.0f)); // extends 40 units from the character
+    Hitbox->AttachTo(RootComponent);
+	Hitbox->RelativeLocation = FVector(50.0f, 0.0f, 0.0f);
 
 	// attach camera boom to capsule
 	CameraBoom = PCIP.CreateDefaultSubobject<USpringArmComponent>(this, TEXT("CameraBoom"));
@@ -104,11 +110,11 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 
 	// Configure character movement
 	CharacterMovement->GravityScale = 2.0f;
-	CharacterMovement->AirControl = 0.80f;
-	CharacterMovement->JumpZVelocity = 1000.f;
+	CharacterMovement->AirControl = 10.0f;
+	CharacterMovement->JumpZVelocity = 750.0f;
 	CharacterMovement->GroundFriction = 3.0f;
 	CharacterMovement->MaxWalkSpeed = 800.0f;
-	CharacterMovement->MaxFlySpeed = 600.0f;
+	CharacterMovement->MaxFlySpeed = 300.0f;
 
 	// Lock character motion onto the XZ plane, so the character can't move in or out of the screen
 	CharacterMovement->bConstrainToPlane = true;
@@ -215,7 +221,7 @@ void APaperPlatformerCharacter::OnLanded(const FHitResult& Hit)
 
 void APaperPlatformerCharacter::OnStartRun()
 {
-	if (Stamina > StaminaRunCost)
+	if (Stamina >= StaminaRunCost)
 	{
 		MoveState = EMoveState::Run;
 		CharacterMovement->MaxWalkSpeed = 1500.0f;
@@ -230,7 +236,8 @@ void APaperPlatformerCharacter::OnStopRun()
 
 void APaperPlatformerCharacter::OnStartAttack()
 {
-	// going to use the following function to get all actors inside the damagebox
+    
+	// going to use the following function to get all actors inside the hitbox
 	// https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UKismetSystemLibrary/BoxOverlapActors_NEW/index.html
 	if (Stamina > 200.0f)
 	{
@@ -240,8 +247,8 @@ void APaperPlatformerCharacter::OnStartAttack()
 
 		TArray<AActor*> EnemiesInRange;
 
-		FVector BoxPos = DamageBox->GetComponentLocation();
-		FVector BoxExtent = DamageBox->GetScaledBoxExtent();
+		FVector BoxPos = Hitbox->GetComponentLocation();
+		FVector BoxExtent = Hitbox->GetScaledBoxExtent();
 		const TArray<TEnumAsByte<EObjectTypeQuery>> filter; //not used
 		const TArray<AActor*> ignore; //not used
 
@@ -256,7 +263,7 @@ void APaperPlatformerCharacter::OnStartAttack()
 			// If enemy is killed
 			if (Cast<APaperEnemy>(overlapped)->Health <= 0.0f)
 			{
-				Experience += Cast<APaperEnemy>(overlapped)->ExperienceEnemy;
+				Experience += Cast<APaperEnemy>(overlapped)->ExperienceValue;
 				if (Experience >= MaxExperience)
 				{
 					Level += 1;
@@ -280,7 +287,6 @@ void APaperPlatformerCharacter::OnStartShield()
 {
 	if (Stamina >= StaminaShieldCost)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("SHIELD!"));
 		BattleState = EBattleState::Shield;
 	}
 }
@@ -290,9 +296,11 @@ void APaperPlatformerCharacter::OnStopShield()
 	BattleState = EBattleState::Idle;
 }
 
-// Handles taking damage
+
 void APaperPlatformerCharacter::OnEnemyCollide(float val)
 {
+    /* handles being damaged */
+    
 	if (Health >= val)
 	{
 		Health -= val;
@@ -306,10 +314,21 @@ void APaperPlatformerCharacter::OnEnemyCollide(float val)
 
 void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 {
-	// if trying to run and actually moving
+    if (AttackBuffDuration >= DeltaSeconds)
+    {
+        AttackPower = BaseAttackPower * 2.5;
+        AttackBuffDuration -= DeltaSeconds;
+    }
+    else
+    {
+        AttackBuffDuration = 0.0f;
+        AttackPower = BaseAttackPower;
+    }
+    
+	// if sprinting and moving
 	if ((MoveState == EMoveState::Run) && (GetVelocity().Size() > 0.0f))
 	{
-		if (Stamina >= StaminaRunCost)
+		if (Stamina >= StaminaRunCost) // if can sprint
 		{
 			Stamina -= StaminaRunCost;
 		}
@@ -318,14 +337,14 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 			OnStopRun();
 		}
 	}
-	else // if not moving
+	else // if not sprinting or not moving
 	{
 		OnStopRun();
 	}
 
 	if ((MoveState == EMoveState::Idle) && (Stamina < MaxStamina) && (BattleState == EBattleState::Idle)) // stamina regen
 	{
-		Stamina += MaxStamina * StaminaRegen;
+		Stamina += StaminaRegen * DeltaSeconds;
 		Stamina = (Stamina > MaxStamina) ? MaxStamina : Stamina;
 	}
     
@@ -342,38 +361,32 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 	}
 }
 
-void APaperPlatformerCharacter::OnItemPickup(float boost, EnumType::bType type)
+void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type BoostType)
 {
-	switch (type) {
-	case (EnumType::HP) :
-		Health += boost;
-		if (Health >= MaxHealth){
-			Health = MaxHealth;
-		}
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("HP boost!"));
-		break;
-	case(EnumType::Stamina) :
-		Stamina += boost;
-		if (Stamina >= MaxStamina){
-			Stamina = MaxStamina;
-		}
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Stamina boost!"));
-		break;
-		//    case(EnumType::Attack):
-		//        AttackPower += boost;
-		//            if (AttackPower >= MaxAttackPower){
-		//                AttackPower = MaxAttackPower;
-		//            }
-		//        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Attack boost!"));
-		break;
-	default:
-		break;
+	switch (BoostType)
+    {
+        case (EBoostType::HP) :
+            Health += BoostValue;
+            if (Health >= MaxHealth){
+                Health = MaxHealth;
+            }
+            break;
+        case (EBoostType::Stamina) :
+            Stamina += BoostValue * 100;
+            if (Stamina >= MaxStamina){
+                Stamina = MaxStamina;
+            }
+            break;
+        case (EBoostType::Attack) :
+            AttackBuffDuration += 20;
+            break;
+        default:
+            break;
 	}
 }
 
 void APaperPlatformerCharacter::SaveGame()
 {
-    
     UCSaveGame* SaveGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
     SaveGameInstance->MaxHealth = MaxHealth;
     SaveGameInstance->MaxStam = MaxStamina;

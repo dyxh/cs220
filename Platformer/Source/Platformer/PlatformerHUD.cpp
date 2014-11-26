@@ -10,26 +10,49 @@ APlatformerHUD::APlatformerHUD(const class FPostConstructInitializeProperties& P
 	: Super(PCIP)
 {
 
-	// use the RobotoDistanceField font
-//	static ConstructorHelpers::FObjectFinder<UFont>HUDFontOb(TEXT("/Engine/Content/EngineFonts/RobotoDistanceField"));
-//	HUDFont = HUDFontOb.Object;
 }
 
 void APlatformerHUD::DrawHUD()
 {
-	// Get screen Dimensions
+	// get screen dimensions
 	FVector2D ScreenDimensions = FVector2D(Canvas->SizeX, Canvas->SizeY);
 
+    // draw the HUD
 	Super::DrawHUD();
 
-	// get the character and print its Health and Stamina
-	APaperPlatformerCharacter* MyCharacter = Cast<APaperPlatformerCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
-	FString LevelString = FString::Printf(TEXT("Level : %10d"), MyCharacter->Level);
-	FString ExpString = FString::Printf(TEXT("Exp : %10d / %10d"), MyCharacter->Experience, MyCharacter->MaxExperience);
-	FString HealthString = FString::Printf(TEXT("Health : %10.1f / %10.1f"), MyCharacter->Health, MyCharacter->MaxHealth);
-	FString StaminaString = FString::Printf(TEXT("Stamina : %10.1f / %10.1f"), MyCharacter->Stamina, MyCharacter->MaxStamina);
-	DrawText(LevelString, FColor::Blue, 25, 25, NULL);
-	DrawText(ExpString, FColor::Blue, 25, 45, NULL);
-	DrawText(HealthString, FColor::Red, 25, 65, NULL);
-	DrawText(StaminaString, FColor::Black, 25, 85, NULL);
+    // retrieves the Hero
+    APaperPlatformerCharacter* Hero = Cast<APaperPlatformerCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
+
+    // creates Hero's level status string
+    FString LevelString = FString::Printf(TEXT("LVL : %d"),
+                                          Hero->Level);
+    
+    // creates Hero's experience status string
+    FString ExpString = FString::Printf(TEXT("EXP : %d / %d"),
+                                        Hero->Experience,
+                                        Hero->MaxExperience);
+    
+    // creates Hero's stamina status string
+    FString StaminaString = FString::Printf(TEXT("STA : %.0f / %.0f"),
+                                            Hero->Stamina,
+                                            Hero->MaxStamina);
+    
+    // creates Hero's health status string
+    FString HealthString = FString::Printf(TEXT("HP : "));
+    for (int32 i = 0; i < Hero->Health; ++i)
+    {
+        HealthString += FString::Printf(TEXT("<3 "));
+    }
+    
+    // create's Hero's health status string
+    FString AttackBuffString = FString::Printf(TEXT("ATK : %d > BUFF : %.1f"),
+                                               Hero->AttackPower,
+                                               Hero->AttackBuffDuration);
+    
+    // draws the status strings
+	DrawText(LevelString, FColor::White, Canvas->SizeX - 270, 25, NULL);
+	DrawText(ExpString, FColor::White, Canvas->SizeX - 270, 40, NULL);
+	DrawText(HealthString, FColor::Red, Canvas->SizeX - 270, 55, NULL);
+	DrawText(StaminaString, FColor::Blue, Canvas->SizeX - 270, 70, NULL);
+    DrawText(AttackBuffString, FColor::White, Canvas->SizeX - 270, 85, NULL);
 }

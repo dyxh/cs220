@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -6,10 +5,6 @@
 #include "Pickup.h"
 #include "PaperPlatformerCharacter.generated.h"
 
-
-/**
- * Enumeration of movement states the character can be in
- */
 UENUM(BlueprintType)
 namespace EMoveState
 {
@@ -20,9 +15,6 @@ namespace EMoveState
 	};
 }
 
-/**
- * Enumeration of battle states the character can be in
- */
 UENUM(BlueprintType)
 namespace EBattleState
 {
@@ -35,71 +27,73 @@ namespace EBattleState
 	};
 }
 
-/**
- * 
- */
+
 UCLASS()
 class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
 {
 	GENERATED_UCLASS_BODY()
 
-	// 2d Camera 
+	// 2D camera
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	TSubobjectPtr<class UCameraComponent> SideViewCameraComponent;
 
-	// Boom connecting camera to player position
+	// boom connecting camera to player position
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	TSubobjectPtr<class USpringArmComponent> CameraBoom;
     
-    // Damage Collision Box
+    // hitbox defining the range the character can inflict damage
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Damage)
-    TSubobjectPtr<class UBoxComponent> DamageBox;
+    TSubobjectPtr<class UBoxComponent> Hitbox;
 	
-	// Movement State
+	// current movement state of the Hero
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enum)
 	TEnumAsByte<EMoveState::State> MoveState;
 
-	// Battle State
+	// current battle state of the Hero
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enum)
 	TEnumAsByte<EBattleState::State> BattleState;
 
-	// Current health of character
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Health)
-	float Health;
+	// CURRENT health of the Hero
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Health)
+	int32 Health;
 
-	// Max possible health of character
+	// MAXIMUM health of the Hero
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Health)
-	float MaxHealth;
+	int32 MaxHealth;
 
-	// Current Stamina of Chracter
+	// CURRENT stamina of the Hero
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
 	float Stamina;
 
-	// Max possible Stamina of Character
+	// MAXIMUM stamina of the Hero
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
 	float MaxStamina;
 
-	// Stamina regeneration rate
+	// REGENERATE RATE for stamina of the Hero
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
 	float StaminaRegen;
-
-	// Health Regeneration rate
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
-	float HealthRegen;
     
-    // Health Regeneration rate
+    // CURRENT attack power of the Hero
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Attack)
-    float AttackPower;
+    int32 AttackPower;
+    
+    // BASE (without modifier) attack power of the Hero
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Attack)
+    int32 BaseAttackPower;
+    
+    // DURRATION of an attack power buff from an AttackPickup
+    UPROPERTY(VisibleAnywhere, BluePrintReadWrite, Category = Attack)
+    float AttackBuffDuration;
 
-	// Stamina cost of run (per tick)
+	// STAMINA COST of run (per tick)
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
 	float StaminaRunCost;
 
-	// Stamina cost of shield (per tick)
+	// STAMINA COST of shield (per tick)
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
 	float StaminaShieldCost;
 
-	// Stamina cost of attack
+	// STAMINA COST of attack (per attack)
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stamina)
 	float StaminaAttackCost;
 
@@ -107,22 +101,22 @@ class PLATFORMER_API APaperPlatformerCharacter : public APaperCharacter
 	virtual void Tick(float DeltaSeconds) override;
     
     // Maximum jumps possible
-    int MaxJumps;
+    int32 MaxJumps;
     
     // Jumps used
-    int CurrentJumps;
+    int32 CurrentJumps;
 
 	// Current experience of player
-	int Experience;
+	int32 Experience;
 
 	// Maximum experience for current level
-	int MaxExperience;
+	int32 MaxExperience;
 
 	// Maximum experience increase per Level Increase
-	int MaxExperienceIncrease;
+	int32 MaxExperienceIncrease;
 
 	// Current level of player
-	int Level;
+	int32 Level;
 
 	// Attack Power Increase per Level Increase
 	float AttackPowerIncrease;
@@ -212,5 +206,5 @@ public:
 	void OnEnemyCollide(float val);
 
 	UFUNCTION()
-	void OnItemPickup(float boost, EnumType::bType type);
+	void OnItemPickup(float BoostValue, EBoostType::Type BoostType);
 };

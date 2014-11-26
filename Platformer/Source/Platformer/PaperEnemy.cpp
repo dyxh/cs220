@@ -8,17 +8,15 @@
 APaperEnemy::APaperEnemy(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
-    // set initial health
-    Health = MaxHealth = 1000.0f;
-
-	ExperienceEnemy = 50;
-
+    /* constructor */
+    Health = MaxHealth = 10;
+	ExperienceValue = 50;
 }
 
 void APaperEnemy::ReceiveDamage(float val)
 {
-    // can be made more complicated than this
-    // for example, we could reduce the damage by some some defense rating
+    /* handles being damaged by the Hero */
+    
     Health -= val;
     
     if (Health <= 0)
@@ -27,20 +25,25 @@ void APaperEnemy::ReceiveDamage(float val)
     }
 }
 
-void APaperEnemy::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other, class UPrimitiveComponent *OtherComp,
-                bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult &Hit)
+void APaperEnemy::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other,
+                             class UPrimitiveComponent *OtherComp,
+                             bool bSelfMoved, FVector HitLocation,
+                             FVector HitNormal, FVector NormalImpulse,
+                             const FHitResult &Hit)
 {
-    Super::ReceiveHit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
+    /* handles damaging the Hero */
+    
+    Super::ReceiveHit(MyComp, Other, OtherComp, bSelfMoved,
+                      HitLocation, HitNormal, NormalImpulse, Hit);
+    
     APaperPlatformerCharacter *Hero = Cast<APaperPlatformerCharacter>(Other);
     
     if (Hero)
     {
         if (Hero->BattleState != EBattleState::Shield)
         {
-            Hero->OnEnemyCollide(20.0f);
-            Hero->CharacterMovement->Velocity += HitNormal * FVector(450.0f, 0.0f, 125.0f);
+            Hero->OnEnemyCollide(1);
         }
+        Hero->CharacterMovement->Velocity += HitNormal * FVector(450.0f, 0.0f, 100.0f);
     }
-    
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Enemy collision detected."));
 }
