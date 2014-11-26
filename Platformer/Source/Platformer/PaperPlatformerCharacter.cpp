@@ -76,12 +76,15 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> JumpAnimationAsset;
         ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleShieldAnimationAsset;
         ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleAttackAnimationAsset;
+        ConstructorHelpers::FObjectFinder<USoundWave> SwordSwooshAsset;
+        
 		FConstructorStatics()
 			: RunningAnimationAsset(TEXT("/Game/Flipbooks/PlayerRunning.PlayerRunning"))
 			, IdleAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdle.PlayerIdle"))
 			, JumpAnimationAsset(TEXT("/Game/Flipbooks/PlayerJump.PlayerJump"))
             , IdleShieldAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdleShield.PlayerIdleShield"))
             , IdleAttackAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdleAttack.PlayerIdleAttack"))
+            , SwordSwooshAsset(TEXT("/Game/Audio/sword-swoosh.sword-swoosh"))
 		{
 		}
 	};
@@ -93,6 +96,17 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
     IdleAttackAnimation = ConstructorStatics.IdleAttackAnimationAsset.Get();
     IdleShieldAnimation = ConstructorStatics.IdleShieldAnimationAsset.Get();
 	Sprite->SetFlipbook(IdleAnimation);
+    
+    //set audio
+    SwordSwooshSound = ConstructorStatics.SwordSwooshAsset.Object;
+    
+    SwordSwoosh = PCIP.CreateDefaultSubobject<UAudioComponent>(this, TEXT("sword-swoosh"));
+    if (SwordSwoosh)
+    {
+        SwordSwoosh->AttachParent = RootComponent;
+        SwordSwoosh->bAutoActivate = false;
+        SwordSwoosh->SetSound(SwordSwooshSound);
+    }
 
 	// set capsule size
 	CapsuleComponent->SetCapsuleHalfHeight(60.0f);
@@ -263,11 +277,14 @@ void APaperPlatformerCharacter::OnStopRun()
 
 void APaperPlatformerCharacter::OnStartAttack()
 {
-	// going to use the following function to get all actors inside the hitbox
+    // going to use the following function to get all actors inside the hitbox
 	// https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UKismetSystemLibrary/BoxOverlapActors_NEW/index.html
 
     if (Stamina >= StaminaAttackCost && MoveState != EMoveState::Death)
 	{
+        SwordSwoosh->Activate();
+        SwordSwoosh->Play();
+        
         AttackDuration = 0.3f;
 		
 		BattleState = EBattleState::Attack;
