@@ -26,7 +26,7 @@ class PLATFORMER_API APickup : public AActor
     
     // the value and type of the boost
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pickup)
-	UInt32 BoostValue;
+	uint32 BoostValue;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enum)
     TEnumAsByte<EBoostType::Type> BoostType;
     
