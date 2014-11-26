@@ -250,6 +250,7 @@ void APaperPlatformerCharacter::OnStartAttack()
 			// We know that all returned actors are going to be PaperEnemies
 			// Here is where we will do any battle calculations, e.g. add sword atkpwr etc
 			Cast<APaperEnemy>(overlapped)->ReceiveDamage(AttackPower);
+			// If enemy is killed
 			if (Cast<APaperEnemy>(overlapped)->Health <= 0.0f)
 			{
 				Experience += Cast<APaperEnemy>(overlapped)->ExperienceEnemy;
@@ -258,6 +259,7 @@ void APaperPlatformerCharacter::OnStartAttack()
 					Level += 1;
 					Experience = 0;
 					MaxExperience += MaxExperienceIncrease;
+					AttackPower += AttackPowerIncrease;
 				}
 			}
 		}
