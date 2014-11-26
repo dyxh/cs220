@@ -10,15 +10,19 @@ class PLATFORMER_API APaperEnemy : public APaperCharacter
 	GENERATED_UCLASS_BODY()
 
 	// current health
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Health)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Health)
     int32 Health;
     
     // Max health of enemy
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Health)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MaxHealth)
     int32 MaxHealth;
 	
 	// Experience that enemy will give player
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ExperienceValue)
 	int32 ExperienceValue;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DamageValue)
+    int32 DamageValue;
 
     // Calculates health loss from given damage
     UFUNCTION()

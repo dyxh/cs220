@@ -12,6 +12,7 @@ APaperEnemy::APaperEnemy(const class FPostConstructInitializeProperties& PCIP)
     
     Health = MaxHealth = 15;
 	ExperienceValue = 50;
+    DamageValue = 1;
 }
 
 void APaperEnemy::ReceiveDamage(float val)
@@ -43,7 +44,7 @@ void APaperEnemy::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other,
     {
         if (Hero->BattleState != EBattleState::Shield)
         {
-            Hero->OnEnemyCollide(1);
+            Hero->OnEnemyCollide(DamageValue);
         }
         Hero->CharacterMovement->Velocity += HitNormal * FVector(450.0f, 0.0f, 100.0f);
     }
