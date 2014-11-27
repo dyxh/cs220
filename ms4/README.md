@@ -65,6 +65,7 @@ int main(int argc, char** argv)
 * Gaining an amount of experience => Character gains a level
 * Character health hits 0 => Character enters death state
 
+You should be able to play the game, kill enemies, pick up HP potions, pick up stamina potions, pick up attack buffs for a specified duration, level up, gain experience, gain attack damage, kill enemies, jump on platforms, die to enemies, be damaged by an enemy, deal damage to an enemy, pause the game, save the game, load the game, exit the game, clear your save file, kill the boss, and win the game.
 
 ### (5) text description of what is implemented. You can refer to the use cases and user stories in your design document.
 
