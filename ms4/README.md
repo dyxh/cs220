@@ -40,7 +40,7 @@ Unit testing is only setup for Mac in XCode, but uses GTEST so you should be abl
   4a) Under Run->Environment Variables add
       `DYLD_FRAMEWORK_PATH` with the value being the absolute path to the `gtest.framework` stored in the `UnitTests`
       
-5) Make sure that the main.cpp that looks like the one here:
+5) Make sure that the `main.cpp` looks like the one here:
 
 ```
 int main(int argc, char** argv)
