@@ -63,12 +63,16 @@ TBA
 
 Items/Inventory  
 - Betty/Max
+
 Battle States & Actions  
 - TJ/David
+
 Movement/Base Classes  
 - John/Adam
+
 Animations/Assets/Graphics  
 - Melinda/Steven
+
 
 ### (7) changes: have you made any design changes or unit test changes from earlier milestones?
 
