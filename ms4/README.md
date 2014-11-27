@@ -6,25 +6,65 @@ What to submit
 4. A readme file, specifying:
 
 ### (1) how to compile
+Prior to compiling, you need to download Unreal Engine 4.5.1.  You can get it for free through github or pay $20 for a personal license.  Once you have UE4 installed you can continue with these instructions.
+
+To compile and run the game (in-editor) follow these steps:
+
+1) Right-Click on the `Platformer.uproject` file and select `generate [XCode/Visual Studio] project`
+
+2) Open the generated project in [XCode/Visual Studio]
+
+3) Change the target to the Game Editor option and compile 
+
+  3a) you can ignore the asset missing message if it appears
+  
+4) Once the editor opens, you can play the game by pressing `Play`
 
 ### (2) how to run your code
 
+Once in the editor, you can hit the `Play` button to play  the game from the viewport.
+
+Alternatively, you can run the appropriate executable from the `Packages` diectory.
+
 ### (3) how to run the unit test cases
+Unit testing is only setup for Mac in XCode, but uses GTEST so you should be able to run them on windows as well.  For unit testing, we copied out the code we wanted to test, so that we didn't have to worry about conflicting with the unreal engine code.
+
+1) In Xcode, create a new target `Command Line Program` called `Unit Tests`
+
+2) Add all the code in the `UnitTests` directory to the project
+
+3) Make sure those files are only included in the `Unit Tests` target
+
+4) Edit the `UnitTests` scheme 
+
+  4a) Under Run->Environment Variables add
+      `DYLD_FRAMEWORK_PATH` with the value being the absolute path to the `gtest.framework` stored in the `UnitTests`
+      
+5) Make sure that the main.cpp that looks like the one here:
+
+```
+int main(int argc, char** argv)
+{
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
+```
+
+6) Now you can build the `UnitTests` target
 
 ###(4) please suggest some acceptance tests for the TA to try (i.e., what inputs to use, and what outputs are expected)
 
-Play the game. Here are the controls:
+Left & Right Arrow Keys = move left and right
+Up Arrow & Space = Jump
+D Key = attack
+S Key = Sprint
+Left Shift = Shield
+P Key = enter pause menu
 
-- arrow keys : control the player character
-- up : jump
-- s : sprint
-- shift : shield
-- d : attack
-- bumping into an item picks it up for you and it is automatically used
-- the damage scales off how long the enemy is in your hitbox while you're attacking
-- bumping into an enemy will deal damage to you  
+Killing an Enemy => Character gains experience
+Gaining an amount of experience => Character gains a level
+Character health hits 0 => Character enters death state
 
-You should be able to play the game, kill enemies, pick up HP potions, pick up stamina potions, pick up attack buffs for a specified duration, level up, gain experience, gain attack damage, kill enemies, jump on platforms, die to enemies, be damaged by an enemy, deal damage to an enemy, pause the game, save the game, load the game, exit the game, clear your save file, kill the boss, and win the game.
 
 ### (5) text description of what is implemented. You can refer to the use cases and user stories in your design document.
 
