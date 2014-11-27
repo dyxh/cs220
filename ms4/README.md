@@ -13,6 +13,19 @@ What to submit
 
 ###(4) please suggest some acceptance tests for the TA to try (i.e., what inputs to use, and what outputs are expected)
 
+Play the game. Here are the controls:
+
+- arrow keys : control the player character
+- up : jump
+- s : sprint
+- shift : shield
+- d : attack
+- bumping into an item picks it up for you and it is automatically used
+- the damage scales off how long the enemy is in your hitbox while you're attacking
+- bumping into an enemy will deal damage to you  
+
+You should be able to play the game, kill enemies, pick up HP potions, pick up stamina potions, pick up attack buffs for a specified duration, level up, gain experience, gain attack damage, kill enemies, jump on platforms, die to enemies, be damaged by an enemy, deal damage to an enemy, pause the game, save the game, load the game, exit the game, clear your save file, kill the boss, and win the game.
+
 ### (5) text description of what is implemented. You can refer to the use cases and user stories in your design document.
 
 **For our description of what is implemented, we will walk through each use case we planned for Iteration 2 from our original design document (from milestone 2).**
