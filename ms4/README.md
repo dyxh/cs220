@@ -91,6 +91,9 @@ This works completely. An enemy death results in a player character receiving ex
 - **character can attack with special abilities**  
 We decided against implementing this for similar reasons as why we did not choose to implement climbing or swimming - the functionality and game logic would be extremely similar to the attack ability we already have implemented, but it would more assets for the ability animations.
 
+- **player death**  
+When the player's health is depleted, the player enters a death state, in which the player is unable to perform any other actions in the game. The player must then access the pause menu and can select the option to start a new game, continue from the last save checkpoint, or exit the game.
+
 ##### Items
 - **power-up items**  
 We've implemented a power-up item that boosts your attack power for a duration, and when it runs out, your attack power goes back to normal.
@@ -108,8 +111,8 @@ We implemented a Player HUD that allows for continuous monitoring of your stats 
 - **equip and remove items**  
 Instead of items you have to equip and use from a menu, we decided to have items that instantly affect the character when they are picked up. We decided this would fit the aesthetic and feel of the game better, as we shifted from RPG to more heavily a Platformer style game.
 
-- **save and load game**
-TBA
+- **save and load game**  
+Opening the game executable will start a new game by default. The game will automatically save the player's information (level, experience, etc) and location every time the player reaches the next level as a checkpoint. Only one save file is stored at a time and the player can load this save file by accessing the menu and selecting the "Load Last Save" option. The player may also restart the game by selecting "New Game, which will transport the player to the starting position and replace their information with the basic starting information.
 
 ### (6) who did who: who paired with who; which part is implemented by which pair
 
