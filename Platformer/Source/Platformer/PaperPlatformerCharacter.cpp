@@ -508,24 +508,28 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type BoostType)
 {
 	switch (BoostType)
-    {
-        case (EBoostType::HP) :
-            Health += BoostValue;
-            if (Health >= MaxHealth){
-                Health = MaxHealth;
-            }
-            break;
-        case (EBoostType::Stamina) :
-            Stamina += BoostValue * 100;
-            if (Stamina >= MaxStamina){
-                Stamina = MaxStamina;
-            }
-            break;
-        case (EBoostType::Attack) :
-            AttackBuffDuration += 20;
-            break;
-        case (EBoostType::Jump) :
-            MaxJumps += 1;
+	{
+	case (EBoostType::HP) :
+		Health += BoostValue;
+		if (Health >= MaxHealth){
+			Health = MaxHealth;
+		}
+		break;
+	case (EBoostType::Stamina) :
+		Stamina += BoostValue * 100;
+		if (Stamina >= MaxStamina)
+		{
+			Stamina = MaxStamina;
+		}
+		break;
+	case (EBoostType::Attack) :
+		AttackBuffDuration += 20;
+		break;
+	case (EBoostType::Jump) :
+		if (MaxJumps < 3) 
+		{
+			MaxJumps += 1;
+		}
             break;
         default:
             break;
