@@ -28,6 +28,9 @@ APaperPlatformerCharacter::APaperPlatformerCharacter()
     
     AttackPower = 500.0f;
     
+	// Length of buff
+	AttackBuffDuration = 0;
+
     //StaminaRunCost = 10.0f;
     StaminaShieldCost = 10.0f;
     StaminaAttackCost = 100.0f;
@@ -147,4 +150,37 @@ void APaperPlatformerCharacter::Tick()
             BattleState = EBattleState::Idle;
         }
     }
+}
+
+void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type BoostType)
+{
+	switch (BoostType)
+	{
+	case (EBoostType::HP) :
+		Health += BoostValue;
+		if (Health >= MaxHealth){
+			Health = MaxHealth;
+		}
+		break;
+	case (EBoostType::Stamina) :
+		Stamina += BoostValue * 100;
+		if (Stamina >= MaxStamina)
+		{
+			Stamina = MaxStamina;
+		}
+		break;
+	case (EBoostType::Attack) :
+		AttackBuffDuration += 20;
+		break;
+	case (EBoostType::Jump) :
+		if (MaxJumps < 3)
+		{
+			MaxJumps += 1;
+		}
+		break;
+	case (EBoostType::Victory) :
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("You've won the game! Open the menu to play again :)"));
+	default:
+		break;
+	}
 }

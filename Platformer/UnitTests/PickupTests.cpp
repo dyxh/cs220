@@ -36,26 +36,31 @@ TEST_F(TEST_PICKUP, TEST_STAMINA){
 
 TEST_F(TEST_PICKUP, TEST_HP){
     
-    AHPPickup a;
-    a.boost = 10;
-    
+    APickup a;
+    a.BoostType = EBoostType::HP;
+	float BoostValue = a.BoostValue;
     character.Health = 0;
-    
-    EXPECT_TRUE(a.ApplyPickup(true, &character));
-    //first arg: true if overlapping, false if not
-    EXPECT_EQ(character.Health, a.boost);
+	a.ReceiveHit(&chracter);
+	EXPECT_TRUE(character.Health == BoostValue);
+	EXPECT_TRUE(!a); // item destroys itself
+
+	APickup b;
+	b.BoostType = EBoostType::HP;
+	float BoostValue = b.BoostValue;
+	character.Health = character.MaxHealth;
+	b.ReceiveHit(&chracter);
+	EXPECT_TRUE(character.Health == character.MaxHealth);
+	EXPECT_TRUE(!b);
 }
 
 
-TEST_F(TEST_PICKUP, TEST_HP){
+TEST_F(TEST_PICKUP, TEST_ATTACK){
     
-    AAttackPickup a;
-    a.boost = 10;
-    
-    character.AttackPower = 100;
-    
-    EXPECT_TRUE(a.ApplyPickup(true, &character));
-    //first arg: true if overlapping, false if not
-    EXPECT_EQ(character.AttackPower, 110);
+	APickup a;
+	a.BoostType = EBoostType::Attack;
+	character.AttackBuffDuration = 0;
+	a.ReceiveHit(&chracter);
+	EXPECT_TRUE(character.AttackBuffDuration == 20); // attack buffs increase duration by 20
+	EXPECT_TRUE(!a); // item destroys itself
     
 }
