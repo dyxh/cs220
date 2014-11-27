@@ -6,9 +6,10 @@
 
 //#include "GameFramework/Actor.h"
 //#include "Pickup.generated.h"
-#include "PaperPlatformerCharacter.h"
-#ifndef __Platformer_copy__APickup__
-#define __Platformer_copy__APickup__
+#include "APaperPlatformerCharacter.h"
+#include <cstdlib>
+#ifndef __Platformer__APickup__
+#define __Platformer__APickup__
 /**
  * 
  */
@@ -29,6 +30,7 @@ namespace EBoostType
 //UCLASS()
 class APickup
 {
+public:
     APickup();
     ~APickup();
     //amount of hp/stamina/attack boosted

@@ -3,7 +3,7 @@
 
 //#include "Platformer.h"
 #include "Pickup.h"
-#include "PaperPlatformerCharacter.h"
+//#include "APaperPlatformerCharacter.h"
 
 //on collision, check whether the object is the character, if yes, add boost amount to stats
 APickup::APickup()
@@ -17,12 +17,17 @@ APickup::APickup()
     
 }
 
+APickup::~APickup()
+{
+    
+}
+
 
 //update stats and destroy item
 void APickup::ReceiveHit(class APaperPlatformerCharacter* Hero)
 {
 	/* handles being picked up by the hero */
 	Hero->OnItemPickup(BoostValue, BoostType);
-	~APickup();
+	this->~APickup();
 }
 

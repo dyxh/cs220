@@ -6,12 +6,11 @@
 //  Copyright (c) 2014 EpicGames. All rights reserved.
 //
 
-#ifndef __Platformer_copy__APaperPlatformerCharacter__
-#define __Platformer_copy__APaperPlatformerCharacter__
 
-#include <stdio.h>
-#include "pickup.h"
-#endif /* defined(__Platformer_copy__APaperPlatformerCharacter__) */
+#ifndef __Platformer__APaperPlatformerCharacter__
+#define __Platformer__APaperPlatformerCharacter__
+#include "Pickup.h"
+
 
 // PaperPlatformerCharacter.h
 /**
@@ -147,7 +146,7 @@ protected:
     
 public:
     // void OnEnemyCollide(float val);
-    
     void OnItemPickup(float BoostValue, EBoostType::Type BoostType);
 };
 
+#endif
