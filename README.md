@@ -1,9 +1,5 @@
-# G.A.M.E. 
+# Smooth Dirt | A CS220 Project
 *Adam Wyeth, John Salem, Betty Liu, Tejong Lim, David Huang, Steven Garcia, Melinda Chou, Max Chen*
-
-### Acronym suggestions?
-* "Gatelike Adversaries Meeting their End"
-* "Gigabytes And Megabytes Emulating"
 
 ### Submission Repositories
 * [Milestone3A](https://github.com/moniker001/cs22001_GAME/tree/master/milestone3)

@@ -6,6 +6,7 @@
 
 //#include "GameFramework/Actor.h"
 //#include "Pickup.generated.h"
+#include "PaperPlatformerCharacter.h"
 #ifndef __Platformer_copy__APickup__
 #define __Platformer_copy__APickup__
 /**
@@ -32,7 +33,7 @@ class APickup
     ~APickup();
     //amount of hp/stamina/attack boosted
 	
-    float boost;
+    float BoostValue;
     EBoostType::Type BoostType;
     //UFUNCTION()
     void ReceiveHit(class APaperPlatformerCharacter* Hero);
