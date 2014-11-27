@@ -16,12 +16,12 @@ APickup::APickup(const class FPostConstructInitializeProperties& PCIP) : Super(P
     
     // create root SphereComponent to handle the pickup's collision
     BaseCollisionComponent = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("PickupBox"));
+    BaseCollisionComponent->SetBoxExtent(FVector(5.0f, 0.0f, 5.0f));
     RootComponent = BaseCollisionComponent;
-    BaseCollisionComponent->SetBoxExtent(FVector(50.0f, 0.0f, 50.0f));
 
     // create static mesh component
     Sprite = PCIP.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("PickupMesh"));
-    Sprite->SetSimulatePhysics(false);
+    Sprite->SetSimulatePhysics(true);
     Sprite->AttachTo(RootComponent);
 }
 
