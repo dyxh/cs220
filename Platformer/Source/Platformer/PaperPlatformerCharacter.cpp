@@ -384,7 +384,7 @@ void APaperPlatformerCharacter::OnEnemyCollide(float val)
 	else if (Health <= val && Health > 0)
     {
 		Health = 0;
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ENTER DEATH STATE."));
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("You have died. Please open the menu to restart."));
         MoveState = EMoveState::Death;
 	}
 }
@@ -509,28 +509,30 @@ void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type 
 {
 	switch (BoostType)
 	{
-	case (EBoostType::HP) :
-		Health += BoostValue;
-		if (Health >= MaxHealth){
-			Health = MaxHealth;
-		}
-		break;
-	case (EBoostType::Stamina) :
-		Stamina += BoostValue * 100;
-		if (Stamina >= MaxStamina)
-		{
-			Stamina = MaxStamina;
-		}
-		break;
-	case (EBoostType::Attack) :
-		AttackBuffDuration += 20;
-		break;
-	case (EBoostType::Jump) :
-		if (MaxJumps < 3) 
-		{
-			MaxJumps += 1;
-		}
+        case (EBoostType::HP) :
+            Health += BoostValue;
+            if (Health >= MaxHealth){
+                Health = MaxHealth;
+            }
             break;
+        case (EBoostType::Stamina) :
+            Stamina += BoostValue * 100;
+            if (Stamina >= MaxStamina)
+            {
+                Stamina = MaxStamina;
+            }
+            break;
+        case (EBoostType::Attack) :
+            AttackBuffDuration += 20;
+            break;
+        case (EBoostType::Jump) :
+            if (MaxJumps < 3) 
+            {
+                MaxJumps += 1;
+            }
+            break;
+        case (EBoostType::Victory) :
+            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("You've won the game! Open the menu to play again :)"));
         default:
             break;
 	}

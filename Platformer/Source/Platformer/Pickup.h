@@ -16,6 +16,7 @@ namespace EBoostType
         Stamina		UMETA(DisplayName = "Stamina boost"),
         Attack		UMETA(DisplayName = "Attack boost"),
         Jump        UMETA(DisplayName = "Jump boost"),
+        Victory     UMETA(DisplayName = "Victory"),
     };
 }
 
