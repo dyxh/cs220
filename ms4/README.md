@@ -1,4 +1,4 @@
-#Smooth Dirt | A CS220 Project
+#Smooth Dirt | A CS220 Project | Milestone 4B
 
 ### (1) how to compile
 Prior to compiling, you need to download Unreal Engine 4.5.1.  You can get it for free through github or pay $20 for a personal license.  Once you have UE4 installed you can continue with these instructions.
