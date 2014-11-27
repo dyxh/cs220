@@ -16,7 +16,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
     
 	// enable tick
 	PrimaryActorTick.bCanEverTick = true;
-
+    
     // If saved file exists, load it
     if (!LoadGame())
     {
@@ -78,6 +78,8 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
         ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleAttackAnimationAsset;
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> RunningShieldAnimationAsset;
         ConstructorHelpers::FObjectFinder<USoundWave> SwordSwooshAsset;
+        ConstructorHelpers::FObjectFinder<USoundWave> JumpSoundAsset;
+        ConstructorHelpers::FObjectFinder<USoundWave> MovingSoundAsset;
         
 		FConstructorStatics()
 			: RunningAnimationAsset(TEXT("/Game/Flipbooks/PlayerRunning.PlayerRunning"))
@@ -87,6 +89,8 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
             , IdleAttackAnimationAsset(TEXT("/Game/Flipbooks/PlayerIdleAttack.PlayerIdleAttack"))
 			, RunningShieldAnimationAsset(TEXT("/Game/Flipbooks/PlayerRunningShield.PlayerRunningShield"))
             , SwordSwooshAsset(TEXT("/Game/Audio/sword-swoosh.sword-swoosh"))
+            , JumpSoundAsset(TEXT("/Game/Audio/jump.jump"))
+            , MovingSoundAsset(TEXT("/Game/Audio/footsteps.footsteps"))
 		{
 		}
 	};
@@ -109,7 +113,32 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
         SwordSwoosh->AttachParent = RootComponent;
         SwordSwoosh->bAutoActivate = false;
         SwordSwoosh->SetSound(SwordSwooshSound);
+        SwordSwoosh->Activate();
     }
+    
+    JumpSound = ConstructorStatics.JumpSoundAsset.Object;
+    
+    JumpSoundPointer = PCIP.CreateDefaultSubobject<UAudioComponent>(this, TEXT("jump sound"));
+    if (JumpSoundPointer)
+    {
+        JumpSoundPointer->AttachParent = RootComponent;
+        JumpSoundPointer->bAutoActivate = false;
+        JumpSoundPointer->SetSound(JumpSound);
+        JumpSoundPointer->Activate();
+    }
+    
+    MovingSound = ConstructorStatics.MovingSoundAsset.Object;
+    MovingSound->bLooping = true;
+    
+    MovingSoundPointer = PCIP.CreateDefaultSubobject<UAudioComponent>(this, TEXT("moving sound"));
+    if( MovingSoundPointer)
+    {
+        MovingSoundPointer->AttachParent = RootComponent;
+        MovingSoundPointer->bAutoActivate = false;
+        MovingSoundPointer->SetSound(MovingSound);
+        MovingSoundPointer->Activate();
+    }
+    
 
 	// set capsule size
 	CapsuleComponent->SetCapsuleHalfHeight(60.0f);
@@ -153,6 +182,8 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	CharacterMovement->MaxWalkSpeed = 800.0f;
 	CharacterMovement->MaxFlySpeed = 10.0f;
 
+    isJumping = false;
+    
 	// Lock character motion onto the XZ plane, so the character can't move in or out of the screen
 	CharacterMovement->bConstrainToPlane = true;
 	CharacterMovement->SetPlaneConstraintNormal(FVector(0.0f, -1.0f, 0.0f)); // restrict movement in y
@@ -187,7 +218,6 @@ void APaperPlatformerCharacter::MoveRight(float val)
 	if (MoveState != EMoveState::Death)
     {
         UpdateAnimation();
-
         if ((Controller != NULL) && (val != 0.0f))
         {
             // only moves in x axis
@@ -263,6 +293,7 @@ void APaperPlatformerCharacter::OnStartJump()
 	Jump();
 	CurrentJumps++;
 	UpdateAnimation();
+    isJumping= true;
 }
 
 void APaperPlatformerCharacter::OnStopJump()
@@ -274,7 +305,8 @@ void APaperPlatformerCharacter::OnStopJump()
 bool APaperPlatformerCharacter::CanJumpInternal_Implementation() const
 {
 	if (Super::CanJumpInternal_Implementation() || CurrentJumps <= MaxJumps) {
-		return true;
+        JumpSoundPointer->Play();
+        return true;
 	}
 	return false;
 }
@@ -282,6 +314,7 @@ bool APaperPlatformerCharacter::CanJumpInternal_Implementation() const
 void APaperPlatformerCharacter::OnLanded(const FHitResult& Hit)
 {
 	CurrentJumps = 0;
+    isJumping = false;
 }
 
 void APaperPlatformerCharacter::OnStartRun()
@@ -450,6 +483,21 @@ void APaperPlatformerCharacter::Tick(float DeltaSeconds)
 			BattleState = EBattleState::Idle;
 		}
 	}
+    
+    if (CharacterMovement->MovementMode == MOVE_Walking && GetVelocity().Size() > 0.0f)
+    {
+        if (!MovingSoundPointer->IsPlaying())
+        {
+            MovingSoundPointer->Play();
+        }
+    }
+    else
+    {
+        if (MovingSoundPointer->IsPlaying())
+        {
+            MovingSoundPointer->Stop();
+        }
+    }
 }
 
 void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type BoostType)

@@ -198,11 +198,25 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
     class UPaperFlipbook* IdleAttackAnimation;
     
+    //SwordSwoosh Sound Properties
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Audio)
     TSubobjectPtr<UAudioComponent> SwordSwoosh;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
     class USoundWave* SwordSwooshSound;
+    
+    // Jump Sound Properties
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Audio)
+    TSubobjectPtr<UAudioComponent> JumpSoundPointer;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
+    class USoundWave* JumpSound;
+    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Audio)
+    TSubobjectPtr<UAudioComponent> MovingSoundPointer;
+    
+    UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Audio)
+    class USoundWave* MovingSound;
     
 	// update animation depending on state
 	void UpdateAnimation();
@@ -213,6 +227,8 @@ protected:
     
     UFUNCTION()
     bool LoadGame();
+    
+    bool isJumping;
     
 public:
 	// Handles taking damage
