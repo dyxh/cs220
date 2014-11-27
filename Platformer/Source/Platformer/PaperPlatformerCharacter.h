@@ -229,12 +229,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = Load)
     bool LoadGame();
     
-<<<<<<< HEAD
-=======
     bool isJumping;
     
 public:
->>>>>>> b1bdf643d058b71441b1cd7e67a48d6db549a621
 	// Handles taking damage
 	UFUNCTION()
 	void OnEnemyCollide(float val);
