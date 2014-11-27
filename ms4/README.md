@@ -4,10 +4,14 @@ What to submit
     It could be exactly the same as what you submitted for milestone 3.A, or it could includes some minor changes.
 3. A makefile or something equivalent to make file that allows the TA to easily build your code, together with all the test cases.
 4. A readme file, specifying:
-(1) how to compile
-(2) how to run your code
-(3) how to run the unit test cases
-(4) please suggest some acceptance tests for the TA to try (i.e., what inputs to use, and what outputs are expected)
+
+### (1) how to compile
+
+### (2) how to run your code
+
+### (3) how to run the unit test cases
+
+###(4) please suggest some acceptance tests for the TA to try (i.e., what inputs to use, and what outputs are expected)
 
 ### (5) text description of what is implemented. You can refer to the use cases and user stories in your design document.
 
