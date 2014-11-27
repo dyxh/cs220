@@ -9,55 +9,20 @@
 APickup::APickup()
 {
     
-    //boost = (rand() % 1000) / 10;//between 0 and 100, in 10s
-    //int index = (rand() % 3);//0, 1, or 2
-    //BoostType = EnumType::HP;//either HP, Stamina, or Attack
+	// determines the strength of the boost, random value 1, 2, or 3
+	BoostValue = (rand() % 3) + 1;
+
+	// BoostType defaults to HP, but can be set to Stamina or Attack in the Editor
+	BoostType = EBoostType::HP;
     
 }
 
 
 //update stats and destroy item
-/*void APickup::OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult){
-    
-    //array of all actors that have
-    TArray<AActor*> OverlapActors;
-    BaseCollisionComponent->GetOverlappingActors(OverlapActors);
-    
-    for( auto overlapped : OverlapActors){
-        
-        APaperPlatformerCharacter* const Hero = Cast<APaperPlatformerCharacter>(overlapped);
-        if(Hero){
-        switch(BoostType){
-            case(EnumType::HP):
-                Hero->Health += boost;
-                //                if(Hero->Health >= Hero->MaxHealth){
-                //                    Hero->Health = MaxHealth;
-                //                }
-                GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("HP boost!"));
-                break;
-            case(EnumType::Stamina):
-                Hero->Stamina += boost;
-                //                if(Hero->Stamina >= Hero->MaxStamina){
-                //                    Hero->Stamina = MaxStamina;
-                //                }
-                GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Stamina boost!"));
-                break;
-            case(EnumType::Attack):
-                Hero->AttackPower += boost;
-                //                if(Hero->AttackPower >= Hero->MaxAttackPower){
-                //                    Hero->AttackPower = MaxAttackPower;
-                //                }
-                GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Attack boost!"));
-                break;
-        }
-            Destroy();
-            //default action to remove mesh
-
-        }
-    }
-    
-    Destroy();
-    
-    
-}*/
+void APickup::ReceiveHit(class APaperPlatformerCharacter* Hero)
+{
+	/* handles being picked up by the hero */
+	Hero->OnItemPickup(BoostValue, BoostType);
+	~APickup();
+}
 

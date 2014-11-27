@@ -12,13 +12,15 @@
  * 
  */
 //UENUM(BlueprintType)
-namespace EnumType
+namespace EBoostType
 {
-    enum bType
+    enum Type
     {
         HP,
         Stamina,
         Attack,
+        Jump,
+        Victory,
     };
 }
 
@@ -27,12 +29,13 @@ namespace EnumType
 class APickup
 {
     APickup();
+    ~APickup();
     //amount of hp/stamina/attack boosted
 	
     float boost;
-    
+    EBoostType::Type BoostType;
     //UFUNCTION()
-    //void OnBeginOverlap();
+    void ReceiveHit(class APaperPlatformerCharacter* Hero);
 };
 
 #endif
