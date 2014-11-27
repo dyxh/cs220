@@ -55,7 +55,7 @@ TBA
 
 ### (6) who did who: who paired with who; which part is implemented by which pair
 
-`Note that there was a lot less strict pair-confined programming done in this iteration - people just fixed bugs and wrote code as needed.`
+**Note that there was a lot less strict pair-confined programming done in this iteration - people just fixed bugs and wrote code as needed.**
 
 Items/Inventory
 - Betty/Max
@@ -83,5 +83,4 @@ Character navigation (swim, climb, interact with objects)
 
 Explanations for why we chose to not implement what we did not implement can be found above.
 
-
-# (8) others: whatever you want to let the TA know
+### (8) others: whatever you want to let the TA know
