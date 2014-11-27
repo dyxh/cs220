@@ -2,52 +2,37 @@
 
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#pragma once
+//#pragma once
 
-#include "GameFramework/Actor.h"
-#include "Pickup.generated.h"
-
+//#include "GameFramework/Actor.h"
+//#include "Pickup.generated.h"
+#ifndef __Platformer_copy__APickup__
+#define __Platformer_copy__APickup__
 /**
  * 
  */
-UENUM(BlueprintType)
+//UENUM(BlueprintType)
 namespace EnumType
 {
     enum bType
     {
-        HP          UMETA(DisplayName = "HP boost"),
-        Stamina		UMETA(DisplayName = "Stamina boost"),
-        Attack		UMETA(DisplayName = "Attack boost"),
+        HP,
+        Stamina,
+        Attack,
     };
 }
 
 
-UCLASS()
-class PLATFORMER_API APickup : public AActor
+//UCLASS()
+class APickup
 {
-	GENERATED_UCLASS_BODY()
-    
-	
+    APickup();
     //amount of hp/stamina/attack boosted
 	
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pickup)
-	float boost;
-    
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enum)
-	TEnumAsByte<EnumType::bType> BoostType;
-    
-    //damage collision box
-    UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Collision)
-    TSubobjectPtr<UBoxComponent> BaseCollisionComponent;
-    
-	// The sprite of the pickup
-	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly)
-	TSubobjectPtr<class UStaticMeshComponent> Sprite;
-
-    //called when something overlaps the sphere component
-    UFUNCTION()
-    void OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+    float boost;
     
     //UFUNCTION()
     //void OnBeginOverlap();
 };
+
+#endif

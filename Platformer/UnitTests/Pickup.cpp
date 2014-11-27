@@ -1,46 +1,23 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Platformer.h"
+//#include "Platformer.h"
 #include "Pickup.h"
 #include "PaperPlatformerCharacter.h"
 
 //on collision, check whether the object is the character, if yes, add boost amount to stats
-APickup::APickup(const class FPostConstructInitializeProperties& PCIP)
-: Super(PCIP)
+APickup::APickup()
 {
     
-    boost = (rand() % 1000) / 10;//between 0 and 100, in 10s
+    //boost = (rand() % 1000) / 10;//between 0 and 100, in 10s
     //int index = (rand() % 3);//0, 1, or 2
-    BoostType = EnumType::HP;//either HP, Stamina, or Attack
-    
-    
-    //create root SphereComponent to handle the pickup's collision
-    BaseCollisionComponent = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("box"));
-    //RootComponent = BaseCollisionComponent;
-    
-    BaseCollisionComponent->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f));
-    BaseCollisionComponent->AttachTo(RootComponent);
-    //extends 40 units from character
-    //RootComponent->SetBoxExtent(FVector(40.0f, 0.0f, 60.0f));
-    
-    //create static mesh component
-    Sprite = PCIP.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("PickupMesh"));
-    
-    //turn physics on
-    Sprite->SetSimulatePhysics(true);
-    
-    //Attach the StaticMeshComponent to the root component
-    Sprite->AttachTo(RootComponent);
-    
-    //passes in a a function pointer that binds to a collision, and acts accordingly
-    BaseCollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &APickup::OnBeginOverlap);
+    //BoostType = EnumType::HP;//either HP, Stamina, or Attack
     
 }
 
 
 //update stats and destroy item
-void APickup::OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult){
+/*void APickup::OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult){
     
     //array of all actors that have
     TArray<AActor*> OverlapActors;
@@ -82,5 +59,5 @@ void APickup::OnBeginOverlap(class AActor* OtherActor, class UPrimitiveComponent
     Destroy();
     
     
-}
+}*/
 
