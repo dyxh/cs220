@@ -61,13 +61,13 @@ TBA
 
 **Note that there was a lot less strict pair-confined programming done in this iteration - people just fixed bugs and wrote code as needed.**
 
-Items/Inventory
+Items/Inventory  
 - Betty/Max
-Battle States & Actions
+Battle States & Actions  
 - TJ/David
-Movement/Base Classes
+Movement/Base Classes  
 - John/Adam
-Animations/Assets/Graphics
+Animations/Assets/Graphics  
 - Melinda/Steven
 
 ### (7) changes: have you made any design changes or unit test changes from earlier milestones?
