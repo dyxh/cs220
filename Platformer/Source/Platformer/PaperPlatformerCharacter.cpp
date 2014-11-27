@@ -18,7 +18,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	PrimaryActorTick.bCanEverTick = true;
     
     // If saved file exists, load it
-    if (LoadGame())
+    if (!LoadGame())
     {
         // set base health
         Health = MaxHealth = 10;
