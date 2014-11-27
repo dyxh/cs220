@@ -2,4 +2,4 @@ DerivedDataCache
 Intermediate
 Saved
 *.xc*
-*.sdf
+Platformer/*.sdf
