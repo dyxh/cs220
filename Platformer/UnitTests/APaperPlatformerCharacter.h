@@ -148,6 +148,6 @@ protected:
 public:
     // void OnEnemyCollide(float val);
     
-    // void OnItemPickup(float BoostValue, EBoostType::Type BoostType);
+    void OnItemPickup(float BoostValue, EBoostType::Type BoostType);
 };
 

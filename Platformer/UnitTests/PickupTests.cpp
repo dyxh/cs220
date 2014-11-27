@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "Pickup.h"
 #include "APaperPlatformerCharacter.h"
-/*
+
 class TEST_PICKUP: public ::testing::Test {
 protected:
     APaperPlatformerCharacter character; // default values for all members
@@ -12,17 +12,26 @@ protected:
 
 TEST_F(TEST_PICKUP, TEST_STAMINA){
     
-    AStaminaPickup a;
-    a.boost = 10;
+    APickup a;
+	a.BoostType = EBoostType::Stamina;
     
-    character.PlayerInput(ETestInput::Attack_Pressed);
-    float initialStamina = character.Stamina;
-    //stamina after attack
+	float BoostValue = a.BoostValue * 100; // this is the multiplier for stamina potions
+
+	character.Stamina = 0;
     
-    EXPECT_TRUE(a.ApplyPickup(true, &character));
-    //first arg: true if overlapping, false if not
-    EXPECT_EQ(character.Stamina, initialStamina + 10);
-    
+	a.ReceiveHit(&character);
+	EXPECT_TRUE(character.Stamina == BoostValue);
+	EXPECT_TRUE(!a); // item destroyed itself
+
+
+
+	character.Stamina = character.MaxStamina;
+	APickup b;
+	b.BoostType = EBoostType::Stamina;
+
+	float BoostValueB = b.BoostValue * 100; // this is the multiplier for stamina potions
+	b.ReceiveHit(&character);
+	EXPECT_TRUE(character.Stamina == character.MaxStamina);
 }
 
 TEST_F(TEST_PICKUP, TEST_HP){
@@ -49,4 +58,4 @@ TEST_F(TEST_PICKUP, TEST_HP){
     //first arg: true if overlapping, false if not
     EXPECT_EQ(character.AttackPower, 110);
     
-}*/
+}
