@@ -54,16 +54,16 @@ int main(int argc, char** argv)
 
 ###(4) please suggest some acceptance tests for the TA to try (i.e., what inputs to use, and what outputs are expected)
 
-Left & Right Arrow Keys = move left and right
-Up Arrow & Space = Jump
-D Key = attack
-S Key = Sprint
-Left Shift = Shield
-P Key = enter pause menu
+* Left & Right Arrow Keys = move left and right
+* Up Arrow & Space = Jump
+* D Key = attack
+* S Key = Sprint
+* Left Shift = Shield
+* P Key = enter pause menu
 
-Killing an Enemy => Character gains experience
-Gaining an amount of experience => Character gains a level
-Character health hits 0 => Character enters death state
+* Killing an Enemy => Character gains experience
+* Gaining an amount of experience => Character gains a level
+* Character health hits 0 => Character enters death state
 
 
 ### (5) text description of what is implemented. You can refer to the use cases and user stories in your design document.
