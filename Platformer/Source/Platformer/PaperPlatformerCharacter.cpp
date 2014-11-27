@@ -18,7 +18,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	PrimaryActorTick.bCanEverTick = true;
     
     // If saved file exists, load it
-    if (!LoadGame())
+    if (LoadGame())
     {
         // set base health
         Health = MaxHealth = 10;
@@ -175,9 +175,9 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	CharacterMovement->bOrientRotationToMovement = false;
 
 	// Configure character movement
-	CharacterMovement->GravityScale = 2.0f;
-	CharacterMovement->AirControl = 1.0f;
-	CharacterMovement->JumpZVelocity = 800.0f;
+	CharacterMovement->GravityScale = 1.5f;
+	CharacterMovement->AirControl = .9f;
+	CharacterMovement->JumpZVelocity = 950.0f;
 	CharacterMovement->GroundFriction = 3.0f;
 	CharacterMovement->MaxWalkSpeed = 800.0f;
 	CharacterMovement->MaxFlySpeed = 10.0f;
