@@ -176,8 +176,13 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 
 	// Configure character movement
 	CharacterMovement->GravityScale = 1.5f;
+//<<<<<<< Updated upstream
 	CharacterMovement->AirControl = .9f;
 	CharacterMovement->JumpZVelocity = 950.0f;
+//=======
+	CharacterMovement->AirControl = 1.0f;
+	CharacterMovement->JumpZVelocity = 800.0f;
+//>>>>>>> Stashed changes
 	CharacterMovement->GroundFriction = 3.0f;
 	CharacterMovement->MaxWalkSpeed = 800.0f;
 	CharacterMovement->MaxFlySpeed = 10.0f;

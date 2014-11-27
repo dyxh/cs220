@@ -221,17 +221,16 @@ protected:
 	// update animation depending on state
 	void UpdateAnimation();
     
-public:
     // Handles saving and loading of character information
-    UFUNCTION(BlueprintCallable, Category = Save)
+    UFUNCTION()
     void SaveGame();
     
-    UFUNCTION(BlueprintCallable, Category = Load)
+    UFUNCTION()
     bool LoadGame();
     
     bool isJumping;
     
-public:
+ public:
 	// Handles taking damage
 	UFUNCTION()
 	void OnEnemyCollide(float val);
