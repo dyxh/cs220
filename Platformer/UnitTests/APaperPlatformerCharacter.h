@@ -10,21 +10,22 @@
 #define __Platformer_copy__APaperPlatformerCharacter__
 
 #include <stdio.h>
-
+#include "pickup.h"
 #endif /* defined(__Platformer_copy__APaperPlatformerCharacter__) */
 
 // PaperPlatformerCharacter.h
 /**
  * Enumeration of movement states the character can be in
  */
-//namespace EMoveState
-//{
-//    enum State
-//    {
-//        Idle,
-//        Run
-//    };
-//}
+namespace EMoveState
+{
+    enum State
+    {
+        Idle,
+        Run,
+        Death,
+    };
+}
 
 /**
  * Enumeration of battle states the character can be in
@@ -35,7 +36,6 @@ namespace EBattleState
     {
         Idle,
         Shield,
-        Flinch,
         Attack,
     };
 }
@@ -62,6 +62,9 @@ public:
     // Battle State
     EBattleState::State BattleState;
     
+    // Move State
+    EMoveState::State MoveState;
+    
     // Current health of character
     float Health;
     
@@ -83,8 +86,20 @@ public:
     // Health Regeneration rate
     float AttackPower;
     
+    // Attack Power Increase per Level Increase
+    float AttackPowerIncrease;
+    
+    //Base Attack power before modifiers
+    float BaseAttackPower;
+    
+    // Length of buff
+    float AttackBuffDuration;
+    
+    // Length of attack
+    float AttackDuration;
+    
     // Stamina cost of run (per tick)
-    //float StaminaRunCost;
+    float StaminaRunCost;
     
     // Stamina cost of shield (per tick)
     float StaminaShieldCost;
@@ -95,14 +110,27 @@ public:
     // Tick
     void Tick();
     
-    // Maximum jumps possible
-    //int MaxJumps;
-    
-    // Jumps used
-    //int CurrentJumps;
-    
     // setup user input
     void PlayerInput(ETestInput::Input input);
+    
+    // Maximum jumps possible
+    int MaxJumps;
+    
+    // Jumps used
+    int CurrentJumps;
+    
+    // Current experience of player
+    int Experience;
+    
+    // Maximum experience for current level
+    int MaxExperience;
+    
+    // Maximum experience increase per Level Increase
+    int MaxExperienceIncrease;
+    
+    // Current level of player
+    int Level;
+    
     
 protected:
     // Handles attack start
@@ -116,4 +144,10 @@ protected:
     
     // Handles shield start
     void OnStopShield();
+    
+public:
+    // void OnEnemyCollide(float val);
+    
+    // void OnItemPickup(float BoostValue, EBoostType::Type BoostType);
 };
+
