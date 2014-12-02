@@ -153,7 +153,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	Hitbox = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("Hitbox"));
 	Hitbox->SetBoxExtent(FVector(60.0f, 0.0f, 25.0f));
     Hitbox->AttachTo(RootComponent);
-	Hitbox->RelativeLocation = FVector(55.0f, 0.0f, 10.0f);
+	Hitbox->RelativeLocation = FVector(70.0f, 0.0f, 10.0f);
 
 	// attach camera boom to capsule
 	CameraBoom = PCIP.CreateDefaultSubobject<USpringArmComponent>(this, TEXT("CameraBoom"));
