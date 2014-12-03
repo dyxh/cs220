@@ -46,6 +46,6 @@ void APaperEnemy::ReceiveHit(class UPrimitiveComponent *MyComp, AActor *Other,
         {
             Hero->OnEnemyCollide(DamageValue);
         }
-        Hero->CharacterMovement->Velocity += HitNormal * FVector(450.0f, 0.0f, 100.0f);
+        Hero->CharacterMovement->Velocity += HitNormal * FVector(600.0f, 0.0f, 100.0f);
     }
 }

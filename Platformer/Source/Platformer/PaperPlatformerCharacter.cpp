@@ -159,15 +159,19 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	CameraBoom = PCIP.CreateDefaultSubobject<USpringArmComponent>(this, TEXT("CameraBoom"));
 	CameraBoom->AttachTo(RootComponent);
 	CameraBoom->TargetArmLength = 500.f;
-	CameraBoom->SocketOffset = FVector(0.f, 0.f, 75.f);
+	CameraBoom->SocketOffset = FVector(50.f, 0.f, 75.f);
 	CameraBoom->bAbsoluteRotation = true;
 	CameraBoom->RelativeRotation = FRotator(0.5, -90.f, 0.f);
+	CameraBoom->bEnableCameraLag = true;
+	CameraBoom->CameraLagSpeed = 10.f;
+	CameraBoom->bDoCollisionTest = false;
 
 	// Create and attach orthographic cam to boom
 	SideViewCameraComponent = PCIP.CreateDefaultSubobject<UCameraComponent>(this, TEXT("2DViewCamera"));
-	SideViewCameraComponent->ProjectionMode = ECameraProjectionMode::Orthographic;
+	SideViewCameraComponent->ProjectionMode = ECameraProjectionMode::Perspective;
 	SideViewCameraComponent->OrthoWidth = 1024.0f;
 	SideViewCameraComponent->AttachTo(CameraBoom, USpringArmComponent::SocketName); // attach to boom
+	
 
 	// restrict camera rotation
 	CameraBoom->bAbsoluteRotation = true;
