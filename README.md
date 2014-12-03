@@ -1,6 +1,8 @@
 # Smooth Dirt | A CS220 Project
 *Adam Wyeth, John Salem, Betty Liu, Tejong Lim, David Huang, Steven Garcia, Melinda Chou, Max Chen*
 
+[Windows Package](https://drive.google.com/open?id=0BynCaVGzyiNoVUp3eUg2c2E3dG8&authuser=0)
+
 ### Submission Repositories
 * [Milestone3A](https://github.com/moniker001/cs22001_GAME/tree/master/milestone3)
 * [Milestone3B](https://github.com/j-salem/CS220)
