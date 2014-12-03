@@ -541,6 +541,8 @@ void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type 
             break;
         case (EBoostType::Victory) :
             GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("You've won the game! Open the menu to play again :)"));
+            MoveState = EMoveState::Death;
+            break;
         default:
             break;
 	}
