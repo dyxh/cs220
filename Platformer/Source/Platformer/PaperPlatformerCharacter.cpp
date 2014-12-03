@@ -53,7 +53,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
     AttackDuration = 0.0f;
     
     // set stamina costs and regeneration rate
-	StaminaRunCost = 10.0f;
+	StaminaRunCost = 2.0f;
 	StaminaShieldCost = 10.0f;
 	StaminaAttackCost = 100.0f;
     StaminaRegen = 200.0f;
