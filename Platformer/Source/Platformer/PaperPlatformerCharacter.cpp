@@ -170,6 +170,7 @@ APaperPlatformerCharacter::APaperPlatformerCharacter(const class FPostConstructI
 	SideViewCameraComponent = PCIP.CreateDefaultSubobject<UCameraComponent>(this, TEXT("2DViewCamera"));
 	SideViewCameraComponent->ProjectionMode = ECameraProjectionMode::Perspective;
 	SideViewCameraComponent->OrthoWidth = 1024.0f;
+	SideViewCameraComponent->FieldOfView = 90.f;
 	SideViewCameraComponent->AttachTo(CameraBoom, USpringArmComponent::SocketName); // attach to boom
 	
 
