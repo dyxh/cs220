@@ -235,6 +235,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = Save)
 	bool LoadGame();
+    
+    UFUNCTION(BlueprintCallable, Category = NewGame)
+    void ClearSaveData();
 
 	bool isJumping;
 };

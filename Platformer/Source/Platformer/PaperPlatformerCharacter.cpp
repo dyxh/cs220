@@ -530,6 +530,10 @@ void APaperPlatformerCharacter::OnItemPickup(float BoostValue, EBoostType::Type 
             {
                 MaxJumps += 1;
             }
+            else
+            {
+                MaxJumps = 3;
+            }
             break;
         case (EBoostType::Victory) :
             GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("You've won the game! Open the menu to play again :)"));
@@ -573,7 +577,16 @@ bool APaperPlatformerCharacter::LoadGame()
     }
     // Load Failed. Most likely no save file exists
     return false;
-    
-    
+}
+
+void APaperPlatformerCharacter::ClearSaveData()
+{
+    MaxHealth = 10;
+    MaxStamina = 1000.0f;
+    AttackPower = BaseAttackPower = 10.0f;
+    MaxJumps = 1;
+    MaxExperience = 100;
+    Experience = 0;
+    Level = 1;
 }
 
